@@ -27,13 +27,13 @@ include( 'admin/includes/functions.php' );
   <?php
 
   $query = 'SELECT *
-    FROM projects
-    ORDER BY date DESC';
+    FROM `museums`
+    ORDER BY `id`';
   $result = mysqli_query( $connect, $query );
 
   ?>
 
-  <p>There are <?php echo mysqli_num_rows($result); ?> projects in the database!</p>
+  <p>There are <?php echo mysqli_num_rows($result); ?> museums in the database!</p>
 
   <hr>
 
@@ -41,18 +41,18 @@ include( 'admin/includes/functions.php' );
 
     <div>
 
-      <h2><?php echo $record['title']; ?></h2>
-      <?php echo $record['content']; ?>
+      <h2><?php echo $record['name']; ?></h2>
+      <?php echo $record['summary']; ?>
 
-      <?php if($record['photo']): ?>
+      <?php if($record['image']): ?>
 
         <p>The image can be inserted using a base64 image:</p>
 
-        <img src="<?php echo $record['photo']; ?>">
+        <img src="<?php echo $record['image']; ?>">
 
         <p>Or by streaming the image through the image.php file:</p>
 
-        <img src="admin/image.php?type=project&id=<?php echo $record['id']; ?>&width=100&height=100">
+        <img src="admin/image.php?type=museum&id=<?php echo $record['id']; ?>&width=100&height=100">
 
       <?php else: ?>
 

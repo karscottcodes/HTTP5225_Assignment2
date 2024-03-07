@@ -12,13 +12,18 @@ include( 'includes/header.php' );
 
 <ul id="dashboard">
   <li>
-    <a href="projects.php">
-      Manage Projects
+    <a href="museums.php">
+      Manage Museums
+    </a>
+  </li>
+  <li>
+    <a href="comments.php">
+      Manage Comments
     </a>
   </li>
   <li>
     <a href="users.php">
-      Manage Users
+      Manage Profile
     </a>
   </li>
   <li>
