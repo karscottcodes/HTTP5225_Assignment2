@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/wideimage/WideImage.php';
 
 include( 'includes/database.php' );
 include( 'includes/config.php' );
@@ -63,7 +64,7 @@ $result = mysqli_query( $connect, $query );
         <?php echo $record['summary']; ?>
     </td>
     <td>
-        Edit Photo
+    <a href="museums_photo.php?id=<?php echo $record['id']; ?>">Photo</i></a>
     </td>
     <td>
         Edit Info
