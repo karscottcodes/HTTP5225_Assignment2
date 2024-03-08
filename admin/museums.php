@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/wideimage/WideImage.php';
 
 include( 'includes/database.php' );
 include( 'includes/config.php' );
@@ -48,7 +49,7 @@ $result = mysqli_query( $connect, $query );
     <tr>
       <td><?php echo $record['id']; ?></td>
       <td>
-        <img src="image.php?type=museum&id=<?php echo $record['id']; ?>&width=300&height=300&format=inside">
+        <img src="<?php echo $record['image']; ?>" style="max-width:100px;">
       </td>
       <td>
         <?php echo $record['name']; ?>
@@ -63,13 +64,13 @@ $result = mysqli_query( $connect, $query );
         <?php echo $record['summary']; ?>
     </td>
     <td>
-        Edit Photo
+      <a href="museums_photo.php?id=<?php echo $record['id']; ?>">Photo</a>
     </td>
     <td>
-        Edit Info
+        <a href="museums_edit.php?id=<?php echo $record['id']; ?>">Edit Details</a>
     </td>
     <td>
-        Delete
+        <a href="museums.php?delete=<?php echo $record['id']; ?>" onclick="javascript:confirm('Are you sure you want to delete this museum?');">Delete</i></a>
     </td>
     </tr>
   <?php endwhile; ?>

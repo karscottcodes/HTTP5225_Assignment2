@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/wideimage/WideImage.php';
 
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
@@ -15,16 +16,16 @@ $person = 'data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdW
 switch( $_GET['type'] )
 {
 
-  case 'project':
+  case 'museum':
     
-    $query = 'SELECT photo 
-      FROM projects
+    $query = 'SELECT `image` 
+      FROM museums
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     $result = mysqli_query( $connect, $query );
     $record = mysqli_fetch_assoc( $result );
 
-    if( !$record['photo'] ) $record['photo'] = $camera;
+    if( !$record['image'] ) $record['image'] = $camera;
     
     break;
       
@@ -32,7 +33,7 @@ switch( $_GET['type'] )
 
 include 'includes/wideimage/WideImage.php';
 
-$data = base64_decode( explode( ',', $record['photo'] )[1] );
+$data = base64_decode( explode( ',', $record['image'] )[1] );
 $img = WideImage::loadFromString( $data );
 
 if( isset( $_GET['width'] ) and isset( $_GET['height'] ) )
