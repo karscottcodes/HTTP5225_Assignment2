@@ -56,32 +56,81 @@ include('admin/includes/functions.php');
       </div>
     </div>
   </header>
-  <main>
+  <!-- <section>
+    <?php
+    $query = 'SELECT * FROM `museums` ORDER BY `id` LIMIT 3';
+    $carousels = mysqli_query($connect, $query);
+    ?>
+    <div class="container-fluid" style="max-height: 500px;">
+      <div class="row">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <?php
+            $first = true;
+            foreach ($carousels as $carousel) {
+              $activeClass = $first ? 'active' : '';
+              ?>
+              <div class="carousel-item <?php echo $activeClass; ?>">
+                <img src="<?php echo $carousel['image']; ?>" class="d-block w-100" alt="<?php echo $carousel['name']; ?>">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>
+                    <?php echo $carousel['name']; ?>
+                  </h5>
+                  <a class="btn btn-primary" href="museum_details.php?id=<?php echo $carousel['id']; ?>">More Details
+                    About
+                    This
+                    Museum</a>
+                </div>
+              </div>
+              <?php
+              $first = false;
+            }
+            ?>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <section>
     <div class="container-fluid">
       <div class="row row-cols-1 row-cols-md-3 g-4">
 
         <?php
-        $query = 'SELECT * FROM `museums` ORDER BY `id` LIMIT 6';
+        $query = 'SELECT * FROM `museums` ORDER BY `id`';
         $result = mysqli_query($connect, $query);
-
-        $queryChoices = "SELECT `id`, `name`
-        FROM museums";
-
-        $resultChoices = mysqli_query($connect, $queryChoices);
-
+        
         foreach ($result as $museum) {
           echo "
                 <div class='col'>
                   <div class='card h-100'>
-                      <img src=" . $museum['image'] . " class='card-img-top' alt='" . $museum['name'] . "'>
+                      <img src=".$museum['image']." class='card-img-top' alt='".$museum['name']."'>
                       <div class='card-body'>
-                        <h5 class='card-title'>" . $museum['name'] . "</h5>
-                        <p class='card-text'>" . $museum['summary'] . "</p>
+                        <h5 class='card-title'>".$museum['name']."</h5>
+                        <p class='card-text'>".$museum['summary']."</p>
                       </div>
                       <div class='card-footer text-body-secondary text-center'>
                       <form>
-                          <input type='hidden' value='" . $museum['id'] . "'>
-                          <a class='btn btn-outline-info' href='museum_details.php?id=" . $museum['id'] . "'>Museum Details</a>
+                          <input type='hidden' value='".$museum['id']."'>
+                          <a class='btn btn-outline-info' href='museum_details.php?id=".$museum['id']."'>Museum Details</a>
                       </form>
                   </div>
                   </div>
@@ -91,34 +140,6 @@ include('admin/includes/functions.php');
         ?>
       </div>
     </div>
-  </main>
-  <section>
-    <div class="container">
-      <div class="row">
-        <h2>Leave A Comment</h2>
-        <div class="col-sm-8">
-          <form action="admin/add_comment.php" method="POST">
-            <div>
-              <label for="museum">Select A Museum</label>
-              <select class="form-select" id="museum" name="museum_id" required>
-                <option value="">Select A Museum</option>
-                <?php
-                while ($choice = mysqli_fetch_assoc($resultChoices)) {
-                  echo "<option value='" . $choice['id'] . "'>" . $choice['name'] . "</option>";
-                }
-                ?>
-              </select>
-            </div>
-            <div>
-              <label for="comment">Leave A Comment</label>
-              <input type="text" id="comment" name="comment">
-            </div>
-            <button type="submit" class="btn btn-primary" name="addComment">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

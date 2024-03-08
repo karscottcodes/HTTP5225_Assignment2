@@ -78,14 +78,33 @@ include( 'includes/header.php' );
   <input type="text" name="address" id="address" value="<?php echo htmlentities( $record['address'] ); ?>">
   
   <br>
+  <label for="postalcode">Postal Code:</label>
+  <input type="text" name="postalcode" id="postalcode" value="<?php echo htmlentities( $record['postalcode'] ); ?>">
+  
+  <br>
   
   <label for="type">Type:</label>
   <input type="text" name="type" id="type" value="<?php echo htmlentities( $record['type'] ); ?>">
   
   <br>
   
-  <label for="summary">summary:</label>
+  <label for="summary">Summary:</label>
   <input type="text" name="summary" id="summary" value="<?php echo htmlentities( $record['summary'] ); ?>">
+  
+  <br>
+
+  <label for="phone">Phone Number:</label>
+  <input type="text" name="phone" id="phone" value="<?php echo htmlentities( $record['phone'] ); ?>">
+  
+  <br>
+
+  <label for="url">Website:</label>
+  <input type="text" name="url" id="url" value="<?php echo htmlentities( $record['url'] ); ?>">
+  
+  <br>
+
+  <label for="ward">Ward:</label>
+  <input type="text" name="ward" id="ward" value="<?php echo htmlentities( $record['ward'] ); ?>">
   
   <br>
   
