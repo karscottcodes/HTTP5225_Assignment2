@@ -1,0 +1,105 @@
+<?php
+
+include('admin/includes/database.php');
+include('admin/includes/config.php');
+include('admin/includes/functions.php');
+
+?>
+<!doctype html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Museum Comment Site | Details</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <link href="admin/css/styles.css" type="text/css" rel="stylesheet">
+
+  <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
+  <!-- Used by Adam (May Remove) -->
+
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+      <img src="admin/imgs/logo.png" alt="Logo" width="66" height="60" class="d-inline-block align-text-top">
+      Toronto Museum Commenter
+    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="museum_list.php">Museums</a>
+              </li>
+          </ul>
+          <form class="d-flex">
+            <a class="btn btn-outline-success" href="admin/index.php">Admin</a>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <section>
+    <h1>Museum Details</h1>
+    <?php
+
+if (isset($_GET['id'])) {
+    // Sanitize the input to prevent SQL injection
+    $museumID = mysqli_real_escape_string($connect, $_GET['id']);
+
+    $queryMuseums = "SELECT *
+                  FROM museums m
+                  WHERE m.id = '$museumID'";
+
+    $queryComments = "SELECT *
+    FROM comments c
+    LEFT JOIN museums m ON m.id = c.museum_id
+    WHERE m.id = '$museumID'";
+
+    $resultMuseum = mysqli_query($connect, $queryMuseums);
+
+    $resultComments = mysqli_query($connect, $queryComments);
+
+    $resultChoices = mysqli_query($connect, $queryChoices);
+
+    if (!$resultMuseum || !$resultComments || !$resultChoices) {
+        echo 'Error Message: ' . mysqli_error($connect) . '.';
+        exit;
+    }
+
+    if (mysqli_num_rows($resultMuseum) > 0){
+        $museum = mysqli_fetch_assoc($resultMuseum);
+
+        echo '
+            <h2>'. $museum['name'] .'</h2>
+        ';
+    }
+
+    while ($comment = mysqli_fetch_assoc($resultComments)) {
+        echo '
+            <p>'. $comment['comment'] .'</p>
+        ';
+    }
+}
+
+                  ?>
+  </section>
+  <section>
+   
+  </section>
+</body>
+</html>

@@ -38,7 +38,6 @@ $result = mysqli_query( $connect, $query );
     <th>Id</th>
     <th>Image</th>
     <th>Name</th>
-    <th>Address</th>
     <th>Type</th>
     <th>Summary</th>
     <th>Edit Photo</th>
@@ -53,9 +52,6 @@ $result = mysqli_query( $connect, $query );
       </td>
       <td>
         <?php echo $record['name']; ?>
-    </td>
-    <td>
-        <?php echo $record['address']; ?>
     </td>
     <td>
         <?php echo $record['type']; ?>
