@@ -135,7 +135,7 @@ if(isset($_GET['userid'])){
     echo'
 
             <h3>Please Login to comment<h3>
-            <a href="user/login.php" class="btn btn-primary">Login</a>
+            <a href="login.php" class="btn btn-primary">Login</a>
           </div>
         </div>
       </div>
