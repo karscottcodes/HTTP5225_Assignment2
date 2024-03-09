@@ -1,8 +1,8 @@
 <?php
 
-include('admin/includes/database.php');
-include('admin/includes/config.php');
-include('admin/includes/functions.php');
+include('includes/database.php');
+include('includes/config.php');
+include('includes/functions.php');
 
 ?>
 <!doctype html>
@@ -70,29 +70,50 @@ include('admin/includes/functions.php');
         $resultChoices = mysqli_query($connect, $queryChoices);
 
         foreach ($result as $museum) {
-          echo "
-                <div class='col'>
-                  <div class='card h-100'>
-                      <img src=" . $museum['image'] . " class='card-img-top' alt='" . $museum['name'] . "'>
-                      <div class='card-body'>
-                        <h5 class='card-title'>" . $museum['name'] . "</h5>
-                        <p class='card-text'>" . $museum['summary'] . "</p>
-                      </div>
-                      <div class='card-footer text-body-secondary text-center'>
-                      <form>
-                          <input type='hidden' value='" . $museum['id'] . "'>
-                          <a class='btn btn-outline-info' href='museum_details.php?id=" . $museum['id'] . "'>Museum Details</a>
-                      </form>
+          if(isset($_GET['userid'])){
+            echo "
+            <div class='col'>
+              <div class='card h-100'>
+                  <img src=" . $museum['image'] . " class='card-img-top' alt='" . $museum['name'] . "'>
+                  <div class='card-body'>
+                    <h5 class='card-title'>" . $museum['name'] . "</h5>
+                    <p class='card-text'>" . $museum['summary'] . "</p>
                   </div>
+                  <div class='card-footer text-body-secondary text-center'>
+                  <form>
+                      <input type='hidden' value='" . $museum['id'] . "'>
+                      <a class='btn btn-outline-info' href='museum_details.php?userid=".$_GET['userid']."&id=" . $museum['id'] . "'>Museum Details</a>
+                  </form>
+              </div>
+              </div>
+            </div>
+          ";
+          }else{
+            echo "
+            <div class='col'>
+              <div class='card h-100'>
+                  <img src=" . $museum['image'] . " class='card-img-top' alt='" . $museum['name'] . "'>
+                  <div class='card-body'>
+                    <h5 class='card-title'>" . $museum['name'] . "</h5>
+                    <p class='card-text'>" . $museum['summary'] . "</p>
                   </div>
-                </div>
-              ";
+                  <div class='card-footer text-body-secondary text-center'>
+                  <form>
+                      <input type='hidden' value='" . $museum['id'] . "'>
+                      <a class='btn btn-outline-info' href='museum_details.php?id=" . $museum['id'] . "'>Museum Details</a>
+                  </form>
+              </div>
+              </div>
+            </div>
+          ";
+          }
+          
         }
         ?>
       </div>
     </div>
   </main>
-  <section>
+  <!-- <section>
     <div class="container">
       <div class="row">
         <h2>Leave A Comment</h2>
@@ -103,9 +124,9 @@ include('admin/includes/functions.php');
               <select class="form-select" id="museum" name="museum_id" required>
                 <option value="">Select A Museum</option>
                 <?php
-                while ($choice = mysqli_fetch_assoc($resultChoices)) {
-                  echo "<option value='" . $choice['id'] . "'>" . $choice['name'] . "</option>";
-                }
+                //while ($choice = mysqli_fetch_assoc($resultChoices)) {
+                  //echo "<option value='" . $choice['id'] . "'>" . $choice['name'] . "</option>";
+                //}
                 ?>
               </select>
             </div>
@@ -119,7 +140,7 @@ include('admin/includes/functions.php');
       </div>
     </div>
 
-  </section>
+  </section> -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
