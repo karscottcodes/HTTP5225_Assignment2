@@ -1,24 +1,44 @@
 <?php
-include('../includes/functions.php');
-include('../includes/database.php');
+include( 'includes/database.php' );
+include( 'includes/config.php' );
+include( 'includes/functions.php' );
 
 if(isset($_POST['login'])){
     $query= 'SELECT *
     FROM users
     WHERE email = "'.$_POST['email'].'"
     AND password = "'.md5($_POST['password']).'"
+    And permission = 0
     LIMIT 1';
+
+    $admin_query='SELECT *
+    FROM users
+    WHERE email = "'.$_POST['email'].'"
+    AND password = "'.md5($_POST['password']).'"
+    And permission = 1
+    LIMIT 1';
+
     $result = mysqli_query($connect,$query);
+
+    $result_admin = mysqli_query($connect,$admin_query);
     if(mysqli_num_rowS($result)){
         $record = mysqli_fetch_assoc($result);
         $_SESSION['id'] = $record['id'];
-        header('Location: ../index.php?userid='.$_SESSION['id'].'');
+        header('Location: index.php?userid='.$_SESSION['id'].'');
+        die();
+    
+    }
+    if(mysqli_num_rowS($result_admin)){
+        $record = mysqli_fetch_assoc($result_admin);
+        $_SESSION['id'] = $record['id'];
+        $_SESSION['email'] = $record['email'];
+        header('Location: admin/dashboard.php');
         die();
     
     }
     else{
         set_message('incorrect username/password');
-        header('Location: user/login.php');
+        header('Location: login.php');
         die();
     }
 }
@@ -67,4 +87,9 @@ if(isset($_POST['login'])){
     </div>
     </div>
     </body>
+    <?php
+
+include( 'includes/footer.php' );
+
+?>
 </html>

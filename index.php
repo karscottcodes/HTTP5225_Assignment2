@@ -49,6 +49,7 @@ include('includes/functions.php');
               </li>
             </ul>
             <form class="d-flex">
+              <a class="btn btn-outline-success" href="login.php">Login</a> &nbsp
               <a class="btn btn-outline-success" href="admin/index.php">Admin</a>
             </form>
           </div>
