@@ -1,9 +1,9 @@
 <?php
-require_once 'includes/wideimage/WideImage.php';
+require_once '../includes/wideimage/WideImage.php';
 
-include( 'includes/database.php' );
-include( 'includes/config.php' );
-include( 'includes/functions.php' );
+include( '../includes/database.php' );
+include( '../includes/config.php' );
+include( '../includes/functions.php' );
 
 secure();
 
@@ -22,7 +22,7 @@ if( isset( $_GET['delete'] ) )
   
 }
 
-include( 'includes/header.php' );
+include( '../includes/header.php' );
 
 $query = 'SELECT *
   FROM museums
@@ -77,6 +77,6 @@ $result = mysqli_query( $connect, $query );
 
 <?php
 
-include( 'includes/footer.php' );
+include( '../includes/footer.php' );
 
 ?>

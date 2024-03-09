@@ -1,8 +1,8 @@
 <?php
 
-include( 'includes/database.php' );
-include( 'includes/config.php' );
-include( 'includes/functions.php' );
+include( '../includes/database.php' );
+include( '../includes/config.php' );
+include( '../includes/functions.php' );
 
 secure();
 
@@ -21,7 +21,7 @@ if( isset( $_GET['delete'] ) )
   
 }
 
-include( 'includes/header.php' );
+include( '../includes/header.php' );
 
 $query = 'SELECT *
   FROM users 
@@ -65,6 +65,6 @@ $result = mysqli_query( $connect, $query );
 
 <?php
 
-include( 'includes/footer.php' );
+include( '../includes/footer.php' );
 
 ?>

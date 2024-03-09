@@ -1,8 +1,8 @@
 <?php
 
-include('admin/includes/database.php');
-include('admin/includes/config.php');
-include('admin/includes/functions.php');
+include('includes/database.php');
+include('includes/config.php');
+include('includes/functions.php');
 
 ?>
 <!doctype html>
@@ -70,13 +70,14 @@ if (isset($_GET['id'])) {
     LEFT JOIN museums m ON m.id = c.museum_id
     WHERE m.id = '$museumID'";
 
+
     $resultMuseum = mysqli_query($connect, $queryMuseums);
 
     $resultComments = mysqli_query($connect, $queryComments);
 
-    $resultChoices = mysqli_query($connect, $queryChoices);
+    // $resultUser = mysqli_query($connect, $queryUser);
 
-    if (!$resultMuseum || !$resultComments || !$resultChoices) {
+    if (!$resultMuseum || !$resultComments ) {
         echo 'Error Message: ' . mysqli_error($connect) . '.';
         exit;
     }
@@ -85,21 +86,64 @@ if (isset($_GET['id'])) {
         $museum = mysqli_fetch_assoc($resultMuseum);
 
         echo '
+        <section>
+        <div class="container">
+          <div class="row">
             <h2>'. $museum['name'] .'</h2>
+            <img src="'. $museum['image'] .'" class="card-img-top" alt=' . $museum['name'] . '>
+            <p class="card-text">' . $museum['summary'] . '</p>
+            </section>
+            <section>
+              <div class="container">
+                <div class="row">
+                  <h2>Leave A Comment</h2>
+                  <div class="col-sm-8">
         ';
     }
 
     while ($comment = mysqli_fetch_assoc($resultComments)) {
         echo '
+
             <p>'. $comment['comment'] .'</p>
         ';
     }
-}
 
-                  ?>
-  </section>
-  <section>
-   
-  </section>
+
+  
+if(isset($_GET['userid'])){
+
+      echo'
+      
+              <form action="comment/add_comment.php" method="POST">
+              <input type="hidden" id="userid" name="userid" value="'.$_GET['userid'].'">
+              <input type="hidden" id="museum_id" name="museum_id" value="'.$museumID.'">
+                <div>
+                  <label for="comment">Comment</label>
+                  <input type="text" id="comment" name="comment">
+                </div>
+                <button type="submit" class="btn btn-primary" name="addComment">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+    
+      </section>
+      ';
+  
+  }
+  else{
+    echo'
+
+            <h3>Please Login to comment<h3>
+            <a href="user/login.php" class="btn btn-primary">Login</a>
+          </div>
+        </div>
+      </div>
+  
+    </section>
+    ';
+  }              
+}
+  ?>
 </body>
 </html>

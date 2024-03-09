@@ -1,8 +1,8 @@
 <?php
 
-include( 'includes/database.php' );
-include( 'includes/config.php' );
-include( 'includes/functions.php' );
+include( '../includes/database.php' );
+include( '../includes/config.php' );
+include( '../includes/functions.php' );
 
 secure();
 
@@ -61,7 +61,7 @@ if( isset( $_GET['id'] ) )
   
 }
 
-include( 'includes/header.php' );
+include( '../includes/header.php' );
 
 ?>
 
@@ -117,6 +117,6 @@ include( 'includes/header.php' );
 
 <?php
 
-include( 'includes/footer.php' );
+include( '../includes/footer.php' );
 
 ?>
