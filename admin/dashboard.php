@@ -23,7 +23,7 @@ include( '../includes/header.php' );
   </li>
   <li>
     <a href="users.php">
-      Manage Profile
+      Manage Users
     </a>
   </li>
   <li>
