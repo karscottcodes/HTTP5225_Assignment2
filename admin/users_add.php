@@ -17,14 +17,17 @@ if( isset( $_POST['first'] ) )
         last,
         email,
         password,
-        active
+        active,
+        permission
       ) VALUES (
         "'.mysqli_real_escape_string( $connect, $_POST['first'] ).'",
         "'.mysqli_real_escape_string( $connect, $_POST['last'] ).'",
         "'.mysqli_real_escape_string( $connect, $_POST['email'] ).'",
         "'.md5( $_POST['password'] ).'",
-        "'.$_POST['active'].'"
+        "'.$_POST['active'].'",
+        "'.$_POST['permission'].'"
       )';
+
     mysqli_query( $connect, $query );
     
     set_message( 'User has been added' );
@@ -68,19 +71,27 @@ include( '../includes/header.php' );
   
   <label for="password">Password:</label>
   <input type="password" name="password" id="password">
-  
+
+  <br>
+
+  <label for="permission">Admin?</label>
+  <select name="permission" id="permission">
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+  </select>
+
   <br>
   
   <label for="active">Active:</label>
   <?php
   
-  $values = array( 'Yes', 'No' );
+  $activevalues = array( 'Yes', 'No' );
   
   echo '<select name="active" id="active">';
-  foreach( $values as $key => $value )
+  foreach( $activevalues as $key => $value2 )
   {
-    echo '<option value="'.$value.'"';
-    echo '>'.$value.'</option>';
+    echo '<option value="'.$value2.'"';
+    echo '>'.$value2.'</option>';
   }
   echo '</select>';
   

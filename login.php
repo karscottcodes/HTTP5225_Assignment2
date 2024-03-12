@@ -24,6 +24,7 @@ if(isset($_POST['login'])){
     if(mysqli_num_rowS($result)){
         $record = mysqli_fetch_assoc($result);
         $_SESSION['id'] = $record['id'];
+        $_SESSION['username'] = $record['first'] . ' ' . $record['last'];
         header('Location: index.php?userid='.$_SESSION['id'].'');
         die();
     
@@ -32,6 +33,7 @@ if(isset($_POST['login'])){
         $record = mysqli_fetch_assoc($result_admin);
         $_SESSION['id'] = $record['id'];
         $_SESSION['email'] = $record['email'];
+        $_SESSION['username'] = $record['first'] . ' ' . $record['last'];
         header('Location: admin/dashboard.php');
         die();
     

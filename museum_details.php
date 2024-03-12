@@ -26,32 +26,35 @@ include('includes/functions.php');
 </head>
 
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-      <img src="admin/imgs/logo.png" alt="Logo" width="66" height="60" class="d-inline-block align-text-top">
-      Toronto Museum Commenter
-    </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
+<header>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+          <a class="navbar-brand" href="#">
+            <img src="admin/imgs/logo.png" alt="Logo" width="66" height="60" class="d-inline-block align-text-top">
+            Museum Commenter
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="index.php">Home</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="museum_list.php">Museums</a>
               </li>
-          </ul>
-          <form class="d-flex">
-            <a class="btn btn-outline-success" href="admin/index.php">Admin</a>
-          </form>
-        </div>
+            </ul>
+            <form class="d-flex">
+              <a class="btn btn-outline-success" href="login.php">Login</a> &nbsp
+            </form>
+          </div>
+        </nav>
       </div>
-    </nav>
+    </div>
   </header>
   <section>
     <h1>Museum Details</h1>
@@ -65,10 +68,12 @@ if (isset($_GET['id'])) {
                   FROM museums m
                   WHERE m.id = '$museumID'";
 
-    $queryComments = "SELECT *
-    FROM comments c
-    LEFT JOIN museums m ON m.id = c.museum_id
-    WHERE m.id = '$museumID'";
+    $queryComments = "SELECT c.*, CONCAT(u.first, ' ', u.last) AS username
+                      FROM comments c
+                      LEFT JOIN museums m ON m.id = c.museum_id
+                      LEFT JOIN users u ON u.id = c.user_id
+                      WHERE m.id = '$museumID'";
+
 
 
     $resultMuseum = mysqli_query($connect, $queryMuseums);
@@ -92,31 +97,46 @@ if (isset($_GET['id'])) {
             <h2>'. $museum['name'] .'</h2>
             <img src="'. $museum['image'] .'" class="card-img-top" alt=' . $museum['name'] . '>
             <p class="card-text">' . $museum['summary'] . '</p>
+            <p>'. $museum['address'] . '</p>
+            <p>'. $museum['postalcode'] . '</p>
+            <p>'. $museum['phone'] . '</p>
+            <p>'. $museum['ward'] . '</p>
+            <p>'. $museum['url'] . '</p>
             </section>
             <section>
               <div class="container">
                 <div class="row">
-                  <h2>Leave A Comment</h2>
+                  <h2>Recent Comments</h2>
                   <div class="col-sm-8">
         ';
     }
+    
+    echo '<div class="list-group">';
 
     while ($comment = mysqli_fetch_assoc($resultComments)) {
         echo '
-
-            <p>'. $comment['comment'] .'</p>
+        <div class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">'.$comment['username'].'</h5>
+            <small>'.$comment['dateAdded'].'</small>
+          </div>
+          <p class="mb-1">'.$comment['comment'].'</p>
+         </div>
         ';
     }
+
+    echo '</div>';
 
 
   
 if(isset($_GET['userid'])){
 
       echo'
-      
+      <h4>Logged in as: '.$_SESSION['username'].'</h4>
               <form action="comment/add_comment.php" method="POST">
               <input type="hidden" id="userid" name="userid" value="'.$_GET['userid'].'">
               <input type="hidden" id="museum_id" name="museum_id" value="'.$museumID.'">
+              <h5>Commenting on: '. $museum['name'] .'</h5>
                 <div>
                   <label for="comment">Comment</label>
                   <input type="text" id="comment" name="comment">
