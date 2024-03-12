@@ -85,14 +85,17 @@ include('includes/functions.php');
                       <div class='card-body'>
                         <h5 class='card-title'>".$museum['name']."</h5>
                         <p class='card-text'>".$museum['summary']."</p>
-                        <p class='card-text'> Comments: " . $museum['comment_count'] . "</p>
-                        <p class='card-text'> Recent Comment: " . $museum['latest_comment']. "</p>
+                        <div class='text-center'>
+                        <form>
+                        <input type='hidden' value='".$museum['id']."'>
+                        <a class='btn btn-outline-dark' href='museum_details.php?id=".$museum['id']."'>Museum Details</a>
+                    </form>
+                        </div>
+                        
                       </div>
-                      <div class='card-footer text-body-secondary text-center'>
-                      <form>
-                          <input type='hidden' value='".$museum['id']."'>
-                          <a class='btn btn-outline-info' href='museum_details.php?id=".$museum['id']."'>Museum Details</a>
-                      </form>
+                      <div class='card-footer text-body-secondary'>
+                      <p class='card-text'> Comments: " . $museum['comment_count'] . "</p>
+                      <p class='card-text'> Recent Comment: " . $museum['latest_comment']. "</p>
                   </div>
                   </div>
                 </div>

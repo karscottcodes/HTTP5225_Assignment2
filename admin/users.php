@@ -33,16 +33,19 @@ $result = mysqli_query( $connect, $query );
 
 <h2>Manage Users</h2>
 
-<table>
+<table class="table">
+  <thead>
   <tr>
-    <th align="center">ID</th>
-    <th align="left">Name</th>
-    <th align="left">Email</th>
-    <th>Active</th>
-    <th>Admin</th>
-    <th>Edit User</th>
-    <th>Delete User</th>
+    <th scope="col">ID</th>
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Active</th>
+    <th scope="col">Admin</th>
+    <th scope="col">Edit User</th>
+    <th scope="col">Delete User</th>
   </tr>
+</thead>
+<tbody>
 <?php while( $record = mysqli_fetch_assoc( $result ) ): ?>
     <tr>
       <td align="center"><?php echo $record['id']; ?></td>
@@ -63,6 +66,7 @@ $result = mysqli_query( $connect, $query );
 
     </tr>
   <?php endwhile; ?>
+        </tbody>
 </table>
 
 <p><a href="users_add.php"><i class="fas fa-plus-square"></i> Add User</a></p>
