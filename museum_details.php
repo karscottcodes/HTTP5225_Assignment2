@@ -46,15 +46,30 @@ include('includes/functions.php');
                 <a class="nav-link" href="museum_list.php">Museums</a>
               </li>
           </ul>
-          <form class="d-flex">
-            <a class="btn btn-outline-success" href="admin/index.php">Admin</a>
-          </form>
+          
+            <?php
+            if(isset($_GET['userid'])){
+              echo'
+              <form class="d-flex">
+              <a class="btn btn-outline-success" href="logout.php">Logout</a>
+              </form>
+              ';
+            }
+            else{
+              echo'
+              <form class="d-flex">
+                          <a class="btn btn-outline-success" href="login.php">Login</a>
+                          </form>
+              ';
+            }
+            ?>
+
+          
         </div>
       </div>
     </nav>
   </header>
-  <section>
-    <h1>Museum Details</h1>
+
     <?php
 
 if (isset($_GET['id'])) {
@@ -68,6 +83,7 @@ if (isset($_GET['id'])) {
     $queryComments = "SELECT *
     FROM comments c
     LEFT JOIN museums m ON m.id = c.museum_id
+    LEFT JOIN users u ON u.id = c.user_id
     WHERE m.id = '$museumID'";
 
 
@@ -89,9 +105,11 @@ if (isset($_GET['id'])) {
         <section>
         <div class="container">
           <div class="row">
-            <h2>'. $museum['name'] .'</h2>
+            <h1 class="text-center mt-4">'. $museum['name'] .'</h1>
+            <div class="mt-3">
             <img src="'. $museum['image'] .'" class="card-img-top" alt=' . $museum['name'] . '>
             <p class="card-text">' . $museum['summary'] . '</p>
+            </div>
             </section>
             <section>
               <div class="container">
@@ -104,7 +122,11 @@ if (isset($_GET['id'])) {
     while ($comment = mysqli_fetch_assoc($resultComments)) {
         echo '
 
-            <p>'. $comment['comment'] .'</p>
+ 
+            <div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis">
+              <h6>'.$comment['first'].' '.$comment['last'].'</h6>
+              '. $comment['comment'] .'              
+            </div>
         ';
     }
 
@@ -135,7 +157,7 @@ if(isset($_GET['userid'])){
     echo'
 
             <h3>Please Login to comment<h3>
-            <a href="login.php" class="btn btn-primary">Login</a>
+            <a href="login.php" class="btn btn-outline-warning">Login</a>
           </div>
         </div>
       </div>
