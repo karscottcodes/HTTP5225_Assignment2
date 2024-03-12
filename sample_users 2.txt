@@ -1,7 +1,0 @@
-Admin - 
-
-test@test.com | Hello
-sampleadmin@test.com | HelloAdmin
-
-sampleuser@test.com | HelloUser
-
