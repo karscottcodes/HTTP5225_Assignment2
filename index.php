@@ -13,7 +13,7 @@ include('includes/functions.php');
   <meta charset="UTF-8">
   <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Museum Comment Site</title>
+  <title>Toronto Gallery Guide | Home</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -27,13 +27,12 @@ include('includes/functions.php');
 
 <body>
   <header>
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg">
 
           <a class="navbar-brand" href="#">
-            <img src="admin/imgs/logo.png" alt="Logo" width="66" height="60" class="d-inline-block align-text-top">
-            Museum Commenter
+            <img src="admin/imgs/logoA.png" alt="Toronto Gallery Guide Logo" width="297" height="75" class="d-inline-block align-text-top">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +48,7 @@ include('includes/functions.php');
               </li>
             </ul>
             <form class="d-flex">
-              <a class="btn btn-outline-success" href="login.php">Login</a> &nbsp
+              <a class="btn btn-secondary text-white nav-btn" href="login.php">Login</a> &nbsp
             </form>
           </div>
         </nav>
@@ -96,7 +95,7 @@ include('includes/functions.php');
                     <div class='text-center'>
                     <form>
                       <input type='hidden' value='" . $museum['id'] . "'>
-                      <a class='btn btn-outline-info' href='museum_details.php?userid=".$_GET['userid']."&id=" . $museum['id'] . "'>Museum Details</a>
+                      <a class='btn btn-outline-dark' href='museum_details.php?userid=".$_GET['userid']."&id=" . $museum['id'] . "'>Museum Details</a>
                     </form>
                     </div>
                   </div>
@@ -119,13 +118,13 @@ include('includes/functions.php');
                     <div class='text-center'>
                     <form>
                     <input type='hidden' value='" . $museum['id'] . "'>
-                    <a class='btn btn-outline-info' href='museum_details.php?id=" . $museum['id'] . "'>Museum Details</a>
+                    <a class='btn btn-outline-dark' href='museum_details.php?id=" . $museum['id'] . "'>Museum Details</a>
                     </form>
                 </div>
                   </div>
-                  <div class='card-footer text-body-secondary text-center'>
-                  <p class='card-text'> Total Comments: " . $museum['comment_count'] . "</p>
-                  <p class='card-text'> Most Recent Comment: " . $museum['latest_comment']. "</p>
+                  <div class='card-footer'>
+                  <p class='card-text'>Total Comments: " . $museum['comment_count'] . "</p>
+                  <p class='card-text'>Most Recent Comment: " . $museum['latest_comment']. "</p>
               </div>
               </div>
             </div>
@@ -221,7 +220,7 @@ if(isset($_GET['userid'])){
               <label for="comment">Comment</label>
               <input type="text" id="comment" name="comment">
             </div>
-            <button type="submit" class="btn btn-primary" name="addComment">Submit</button>
+            <button type="submit" class="btn btn-secondary text-white" name="addComment">Submit</button>
           </form>
         </div>
       </div>
@@ -235,7 +234,7 @@ else{
 echo'
 
         <h3>Please Login to comment<h3>
-        <a href="login.php" class="btn btn-primary">Login</a>
+        <a href="login.php" class="btn btn-secondary text-white">Login</a>
       </div>
     </div>
   </div>

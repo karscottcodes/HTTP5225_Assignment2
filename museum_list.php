@@ -27,13 +27,12 @@ include('includes/functions.php');
 
 <body>
 <header>
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg">
 
           <a class="navbar-brand" href="#">
-            <img src="admin/imgs/logo.png" alt="Logo" width="66" height="60" class="d-inline-block align-text-top">
-            Museum Commenter
+            <img src="admin/imgs/logoA.png" alt="Toronto Gallery Guide Logo" width="297" height="75" class="d-inline-block align-text-top">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +48,7 @@ include('includes/functions.php');
               </li>
             </ul>
             <form class="d-flex">
-              <a class="btn btn-outline-success" href="login.php">Login</a> &nbsp
+              <a class="btn btn-secondary text-white nav-btn" href="login.php">Login</a> &nbsp
             </form>
           </div>
         </nav>
