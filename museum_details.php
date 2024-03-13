@@ -46,17 +46,31 @@ include('includes/functions.php');
               <li class="nav-item">
                 <a class="nav-link" href="museum_list.php">Museums</a>
               </li>
-            </ul>
-            <form class="d-flex">
-              <a class="btn btn-secondary text-white nav-btn" href="login.php">Login</a> &nbsp
-            </form>
-          </div>
-        </nav>
+          </ul>
+          
+            <?php
+            if(isset($_GET['userid'])){
+              echo'
+              <form class="d-flex">
+              <a class="btn btn-outline-success" href="logout.php">Logout</a>
+              </form>
+              ';
+            }
+            else{
+              echo'
+              <form class="d-flex">
+                          <a class="btn btn-outline-success" href="login.php">Login</a>
+                          </form>
+              ';
+            }
+            ?>
+
+          
+        </div>
       </div>
     </div>
   </header>
-  <section>
-    <h1>Museum Details</h1>
+
     <?php
 
 if (isset($_GET['id'])) {
@@ -67,12 +81,11 @@ if (isset($_GET['id'])) {
                   FROM museums m
                   WHERE m.id = '$museumID'";
 
-    $queryComments = "SELECT c.*, CONCAT(u.first, ' ', u.last) AS username
-                      FROM comments c
-                      LEFT JOIN museums m ON m.id = c.museum_id
-                      LEFT JOIN users u ON u.id = c.user_id
-                      WHERE m.id = '$museumID'";
-
+    $queryComments = "SELECT c.*,m.*,u.*, CONCAT(u.first, ' ', u.last) AS username
+    FROM comments c
+    LEFT JOIN museums m ON m.id = c.museum_id
+    LEFT JOIN users u ON u.id = c.user_id
+    WHERE m.id = '$museumID'";
 
 
     $resultMuseum = mysqli_query($connect, $queryMuseums);
@@ -93,7 +106,8 @@ if (isset($_GET['id'])) {
         <section>
         <div class="container">
           <div class="row">
-            <h2>'. $museum['name'] .'</h2>
+            <h1 class="text-center mt-4">'. $museum['name'] .'</h1>
+            <div class="mt-3">
             <img src="'. $museum['image'] .'" class="card-img-top" alt=' . $museum['name'] . '>
             <p class="card-text">' . $museum['summary'] . '</p>
             <p>'. $museum['address'] . '</p>
