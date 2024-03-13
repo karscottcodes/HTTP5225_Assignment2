@@ -32,16 +32,19 @@ $result = mysqli_query( $connect, $query );
 
 <h2>Manage Comments</h2>
 
-<table>
+<table class="table">
+  <thead>
   <tr>
-    <th>Id</th>
-    <th>User_Id</th>
-    <th>Museum_Id</th>
-    <th>Comment</th>
-    <th>Date Added</th>
-    <th>Edit Comment</th>
-    <th>Delete</th>
+    <th scope="col">Id</th>
+    <th scope="col">User_Id</th>
+    <th scope="col">Museum_Id</th>
+    <th scope="col">Comment</th>
+    <th scope="col">Date Added</th>
+    <th scope="col">Edit Comment</th>
+    <th scope="col">Delete</th>
   </tr>
+  </thead>
+  <tbody>
   <?php while( $record = mysqli_fetch_assoc( $result ) ): ?>
     <tr>
       <td><?php echo $record['id']; ?></td>
@@ -65,6 +68,7 @@ $result = mysqli_query( $connect, $query );
     </td>
     </tr>
   <?php endwhile; ?>
+  </tbody>
 </table>
 
 <p><a href="comments_add.php"><i class="fas fa-plus-square"></i> Add Comments</a></p>

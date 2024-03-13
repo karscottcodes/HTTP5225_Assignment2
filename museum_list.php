@@ -1,8 +1,8 @@
 <?php
 
-include('admin/includes/database.php');
-include('admin/includes/config.php');
-include('admin/includes/functions.php');
+include('includes/database.php');
+include('includes/config.php');
+include('includes/functions.php');
 
 ?>
 <!doctype html>
@@ -26,14 +26,13 @@ include('admin/includes/functions.php');
 </head>
 
 <body>
-  <header>
-    <div class="container-fluid">
+<header>
+    <div class="container">
       <div class="row">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg">
 
           <a class="navbar-brand" href="#">
-            <img src="admin/imgs/logo.png" alt="Logo" width="66" height="60" class="d-inline-block align-text-top">
-            Museum Commenter
+            <img src="admin/imgs/logoA.png" alt="Toronto Gallery Guide Logo" width="297" height="75" class="d-inline-block align-text-top">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,73 +48,33 @@ include('admin/includes/functions.php');
               </li>
             </ul>
             <form class="d-flex">
-              <a class="btn btn-outline-success" href="admin/index.php">Admin</a>
+              <a class="btn btn-secondary text-white nav-btn" href="login.php">Login</a> &nbsp
             </form>
           </div>
         </nav>
       </div>
     </div>
   </header>
-  <!-- <section>
-    <?php
-    $query = 'SELECT * FROM `museums` ORDER BY `id` LIMIT 3';
-    $carousels = mysqli_query($connect, $query);
-    ?>
-    <div class="container-fluid" style="max-height: 500px;">
-      <div class="row">
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-              aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-              aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-              aria-label="Slide 3"></button>
-          </div>
-          <div class="carousel-inner">
-            <?php
-            $first = true;
-            foreach ($carousels as $carousel) {
-              $activeClass = $first ? 'active' : '';
-              ?>
-              <div class="carousel-item <?php echo $activeClass; ?>">
-                <img src="<?php echo $carousel['image']; ?>" class="d-block w-100" alt="<?php echo $carousel['name']; ?>">
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>
-                    <?php echo $carousel['name']; ?>
-                  </h5>
-                  <a class="btn btn-primary" href="museum_details.php?id=<?php echo $carousel['id']; ?>">More Details
-                    About
-                    This
-                    Museum</a>
-                </div>
-              </div>
-              <?php
-              $first = false;
-            }
-            ?>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section> -->
-
   <section>
     <div class="container-fluid">
       <div class="row row-cols-1 row-cols-md-3 g-4">
 
         <?php
-        $query = 'SELECT * FROM `museums` ORDER BY `id`';
+        $query = 'SELECT m.*, 
+        COUNT(c.id) AS comment_count,
+        MAX(c.comment) AS latest_comment,
+        MAX(c.dateAdded) AS latest_comment_date
+          FROM museums m
+          LEFT JOIN comments c ON m.id = c.museum_id
+          LEFT JOIN (
+              SELECT museum_id, MAX(dateAdded) AS max_dateAdded
+              FROM comments
+              GROUP BY museum_id
+          ) AS latest_comment_subquery ON m.id = latest_comment_subquery.museum_id AND c.dateAdded = latest_comment_subquery.max_dateAdded
+          GROUP BY m.id, m.name, m.image, m.address, m.type, m.summary, m.phone, m.url, m.postalcode, m.ward
+          ORDER BY m.id';
+
+        
         $result = mysqli_query($connect, $query);
         
         foreach ($result as $museum) {
@@ -126,12 +85,17 @@ include('admin/includes/functions.php');
                       <div class='card-body'>
                         <h5 class='card-title'>".$museum['name']."</h5>
                         <p class='card-text'>".$museum['summary']."</p>
+                        <div class='text-center'>
+                        <form>
+                        <input type='hidden' value='".$museum['id']."'>
+                        <a class='btn btn-outline-dark' href='museum_details.php?id=".$museum['id']."'>Museum Details</a>
+                    </form>
+                        </div>
+                        
                       </div>
-                      <div class='card-footer text-body-secondary text-center'>
-                      <form>
-                          <input type='hidden' value='".$museum['id']."'>
-                          <a class='btn btn-outline-info' href='museum_details.php?id=".$museum['id']."'>Museum Details</a>
-                      </form>
+                      <div class='card-footer text-body-secondary'>
+                      <p class='card-text'> Comments: " . $museum['comment_count'] . "</p>
+                      <p class='card-text'> Recent Comment: " . $museum['latest_comment']. "</p>
                   </div>
                   </div>
                 </div>
@@ -141,7 +105,7 @@ include('admin/includes/functions.php');
       </div>
     </div>
   </section>
-
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>

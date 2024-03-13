@@ -33,17 +33,20 @@ $result = mysqli_query( $connect, $query );
 
 <h2>Manage Museums</h2>
 
-<table>
+<table class="table">
+  <thead>
   <tr>
-    <th>Id</th>
-    <th>Image</th>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Summary</th>
-    <th>Edit Photo</th>
-    <th>Edit Details</th>
-    <th>Delete Museum</th>
+    <th scope="col">Id</th>
+    <th scope="col">Image</th>
+    <th scope="col">Name</th>
+    <th scope="col">Type</th>
+    <th scope="col">Summary</th>
+    <th scope="col">Edit Photo</th>
+    <th scope="col">Edit Details</th>
+    <th scope="col">Delete Museum</th>
   </tr>
+</thead>
+<tbody>
   <?php while( $record = mysqli_fetch_assoc( $result ) ): ?>
     <tr>
       <td><?php echo $record['id']; ?></td>
@@ -70,6 +73,7 @@ $result = mysqli_query( $connect, $query );
     </td>
     </tr>
   <?php endwhile; ?>
+</tbody>
 </table>
 
 <p><a href="museums_add.php"><i class="fas fa-plus-square"></i> Add Museum</a></p>

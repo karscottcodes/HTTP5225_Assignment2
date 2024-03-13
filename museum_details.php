@@ -26,23 +26,24 @@ include('includes/functions.php');
 </head>
 
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-      <img src="admin/imgs/logo.png" alt="Logo" width="66" height="60" class="d-inline-block align-text-top">
-      Toronto Museum Commenter
-    </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
+<header>
+    <div class="container">
+      <div class="row">
+        <nav class="navbar navbar-expand-lg">
+
+          <a class="navbar-brand" href="#">
+            <img src="admin/imgs/logoA.png" alt="Toronto Gallery Guide Logo" width="297" height="75" class="d-inline-block align-text-top">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="index.php">Home</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="museum_list.php">Museums</a>
               </li>
           </ul>
@@ -67,7 +68,7 @@ include('includes/functions.php');
           
         </div>
       </div>
-    </nav>
+    </div>
   </header>
 
     <?php
@@ -80,7 +81,7 @@ if (isset($_GET['id'])) {
                   FROM museums m
                   WHERE m.id = '$museumID'";
 
-    $queryComments = "SELECT *
+    $queryComments = "SELECT c.*,m.*,u.*, CONCAT(u.first, ' ', u.last) AS username
     FROM comments c
     LEFT JOIN museums m ON m.id = c.museum_id
     LEFT JOIN users u ON u.id = c.user_id
@@ -109,41 +110,51 @@ if (isset($_GET['id'])) {
             <div class="mt-3">
             <img src="'. $museum['image'] .'" class="card-img-top" alt=' . $museum['name'] . '>
             <p class="card-text">' . $museum['summary'] . '</p>
-            </div>
+            <p>'. $museum['address'] . '</p>
+            <p>'. $museum['postalcode'] . '</p>
+            <p>'. $museum['phone'] . '</p>
+            <p>'. $museum['ward'] . '</p>
+            <p>'. $museum['url'] . '</p>
             </section>
             <section>
               <div class="container">
                 <div class="row">
-                  <h2>Leave A Comment</h2>
+                  <h2>Recent Comments</h2>
                   <div class="col-sm-8">
         ';
     }
+    
+    echo '<div class="list-group">';
 
     while ($comment = mysqli_fetch_assoc($resultComments)) {
         echo '
-
- 
-            <div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis">
-              <h6>'.$comment['first'].' '.$comment['last'].'</h6>
-              '. $comment['comment'] .'              
-            </div>
+        <div class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">'.$comment['username'].'</h5>
+            <small>'.$comment['dateAdded'].'</small>
+          </div>
+          <p class="mb-1">'.$comment['comment'].'</p>
+         </div>
         ';
     }
+
+    echo '</div>';
 
 
   
 if(isset($_GET['userid'])){
 
       echo'
-      
+      <h4>Logged in as: '.$_SESSION['username'].'</h4>
               <form action="comment/add_comment.php" method="POST">
               <input type="hidden" id="userid" name="userid" value="'.$_GET['userid'].'">
               <input type="hidden" id="museum_id" name="museum_id" value="'.$museumID.'">
+              <h5>Commenting on: '. $museum['name'] .'</h5>
                 <div>
                   <label for="comment">Comment</label>
                   <input type="text" id="comment" name="comment">
                 </div>
-                <button type="submit" class="btn btn-primary" name="addComment">Submit</button>
+                <button type="submit" class="btn btn-secondary text-white" name="addComment">Submit</button>
               </form>
             </div>
           </div>
@@ -157,7 +168,7 @@ if(isset($_GET['userid'])){
     echo'
 
             <h3>Please Login to comment<h3>
-            <a href="login.php" class="btn btn-outline-warning">Login</a>
+            <a href="login.php" class="btn btn-secondary text-white">Login</a>
           </div>
         </div>
       </div>
