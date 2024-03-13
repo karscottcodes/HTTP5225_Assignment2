@@ -31,27 +31,24 @@ include('includes/functions.php');
       <div class="row">
       <nav class="navbar navbar-expand-lg">
 
-<a class="navbar-brand" href="#">
-  <img src="admin/imgs/logoA.png" alt="Toronto Gallery Guide Logo" width="297" height="75" class="d-inline-block align-text-top">
-</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-  aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    <li class="nav-item">
-      <a class="nav-link" href="index.php">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="museum_list.php">Museums</a>
-    </li>
-  </ul>
-  <form class="d-flex">
-    <a class="btn btn-secondary text-white nav-btn" href="login.php">Login</a> &nbsp
-  </form>
-</div>
-</nav>
+          <a class="navbar-brand" href="#">
+            <img src="admin/imgs/logoA.png" alt="Toronto Gallery Guide Logo" width="297" height="75" class="d-inline-block align-text-top">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="index.php">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="museum_list.php">Museums</a>
+              </li>
+            </ul>
+
+
               <?php
               if(isset($_POST['login'])){
                 $query= 'SELECT *
@@ -92,12 +89,27 @@ include('includes/functions.php');
                     die();
                 }
             }
+
+            
                       if(isset($_GET['userid'])){
-                        echo '
-                        <form class="d-flex">
-                        <a class="btn btn-secondary text-white nav-btn" href="logout.php">Logout</a>
-                        </form>
-                        ';
+                        $query_user= 'SELECT *
+                        FROM users
+                        WHERE id="'.$_GET['userid'].'"
+                        LIMIT 1';
+                        $result_user = mysqli_query($connect,$query_user);
+                        foreach($result_user as $user){
+                          echo '
+                          <h5 class="me-2 mt-3">Welcome '.$user['first'].' '.$user['last'].'</h5>
+                          
+                          <a type="button" class="btn btn-secondary text-white" href="logout.php">Logout</a>
+                          
+                          </div>
+                          </nav>
+                          ';
+                        }
+                        
+
+                       
                       }
                       else{
                       
@@ -129,10 +141,12 @@ include('includes/functions.php');
                                   </div>
                                   <button type="submit" name="login" class="btn btn-primary">Submit</button>
                               </form>
-                          </div>
+                            </div>
                               
                           </div>
                         </div>
+                        </div>
+                        </nav>
                         ';
                       }
                 ?>
@@ -291,68 +305,13 @@ include('includes/functions.php');
           </div>
         <?php endforeach; ?>
 
-        </div>
-    </div>
-    
-  </section>
-  <section>
-<?php
-
-        $query = "SELECT * FROM museums ORDER BY `id`;";
-
-        $resultChoices = mysqli_query($connect, $query);
-
-
-if(isset($_GET['userid'])){
-
-  echo'
-        <h4>Logged in as: '.$_SESSION['username'].'</h4>
-          <form action="comment/add_comment.php" method="POST">
-          <input type="hidden" id="userid" name="userid" value="'.$_GET['userid'].'">
-            <div>
-              <label for="museum">Museum</label>
-                <select name="museum_id">';
-                foreach ($resultChoices as $choice){
-                  echo '<option value="'.$choice['id'].'">'. $choice['name'] .'</option>';
-                }
-             echo   '</select>
-              </div>
-              <div>
-              <label for="comment">Comment</label>
-              <input type="text" id="comment" name="comment">
-            </div>
-            <button type="submit" class="btn btn-secondary text-white" name="addComment">Submit</button>
-          </form>
-        </div>
       </div>
-    </div>
-
+    </div>   
   </section>
-  ';
-
-}
-else{
-echo'
-
-        <h3>Please Login to comment<h3>
-        <a href="login.php" class="btn btn-secondary text-white">Login</a>
-      </div>
-    </div>
-  </div>
-
-</section>
-';
-}              
-
-?>
-
-  </section>
-
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-
+    crossorigin="anonymous">
+  </script>
   <script>
     var myModal = document.getElementById('myModal')
     var myInput = document.getElementById('myInput')
