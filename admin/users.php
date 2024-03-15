@@ -31,7 +31,15 @@ $result = mysqli_query( $connect, $query );
 
 ?>
 
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+
+
+
 <h2>Manage Users</h2>
+
+<p class="pt-3"><a class="btn btn-secondary text-white" href="users_add.php"><i class="bi bi-plus-square"></i> &nbsp;Add New User</a></p>
 
 <table class="table">
   <thead>
@@ -48,19 +56,21 @@ $result = mysqli_query( $connect, $query );
 <tbody>
 <?php while( $record = mysqli_fetch_assoc( $result ) ): ?>
     <tr>
-      <td align="center"><?php echo $record['id']; ?></td>
-      <td align="left"><?php echo htmlentities( $record['first'] ); ?> <?php echo htmlentities( $record['last'] ); ?></td>
-      <td align="left"><a href="mailto:<?php echo htmlentities( $record['email'] ); ?>"><?php echo htmlentities( $record['email'] ); ?></a></td>
-      <td align="center">
+      <td><?php echo $record['id']; ?></td>
+      <td><?php echo htmlentities( $record['first'] ); ?> <?php echo htmlentities( $record['last'] ); ?></td>
+      <td><a href="mailto:<?php echo htmlentities( $record['email'] ); ?>"><?php echo htmlentities( $record['email'] ); ?></a></td>
+      <td>
         <?php echo $record['active']; ?>
       </td>
-      <td align="center">
+      <td>
         <?php echo $record['permission']; ?>
       </td>
-      <td align="center"><a href="users_edit.php?id=<?php echo $record['id']; ?>">Edit</a></td>
-      <td align="center">
+      <td><a class="btn btn-secondary text-white" href="users_edit.php?id=<?php echo $record['id']; ?>"><i class="bi bi-body-text"></i> &nbsp;Edit</a></td>
+      <td>
         <?php if( $_SESSION['id'] != $record['id'] ): ?>
-          <a href="users.php?delete=<?php echo $record['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+          <a class="btn btn-secondary text-white" href="users.php?delete=<?php echo $record['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');"><i class="bi bi-trash3"></i> &nbsp;Delete</a>
+          <?php else: ?>
+          <button type="button" class="btn btn-secondary text-white" disabled><i class="bi bi-trash3"></i> &nbsp;Delete</button>
         <?php endif; ?>
       </td>
 
@@ -69,8 +79,10 @@ $result = mysqli_query( $connect, $query );
         </tbody>
 </table>
 
-<p><a href="users_add.php"><i class="fas fa-plus-square"></i> Add User</a></p>
 
+</div>
+  </div>
+</div>
 
 <?php
 

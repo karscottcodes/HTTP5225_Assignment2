@@ -47,12 +47,7 @@ include('includes/functions.php');
       <a class="nav-link" href="museum_list.php">Museums</a>
     </li>
   </ul>
-  <form class="d-flex">
-    <a class="btn btn-secondary text-white nav-btn" href="login.php">Login</a> &nbsp
-  </form>
-</div>
-</nav>
-              <?php
+  <?php
               if(isset($_POST['login'])){
                 $query= 'SELECT *
                 FROM users
@@ -94,9 +89,7 @@ include('includes/functions.php');
             }
                       if(isset($_GET['userid'])){
                         echo '
-                        <form class="d-flex">
-                        <a class="btn btn-secondary text-white nav-btn" href="logout.php">Logout</a>
-                        </form>
+                          <a class="btn btn-secondary text-white nav-btn" href="logout.php">Logout</a>
                         ';
                       }
                       else{
@@ -123,11 +116,11 @@ include('includes/functions.php');
                                       <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter email">
                                       
                                   </div>
-                                  <div class="form-group">
+                                  <div class="form-group mt-3">
                                       <label for="password">Password</label>
                                       <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                   </div>
-                                  <button type="submit" name="login" class="btn btn-primary">Submit</button>
+                                  <button type="submit" name="login" class="btn btn-secondary text-white mt-3">Submit</button>
                               </form>
                           </div>
                               
@@ -136,6 +129,9 @@ include('includes/functions.php');
                         ';
                       }
                 ?>
+</div>
+</nav>
+              
   </header>
   <section>
     <div class="container-fluid">
