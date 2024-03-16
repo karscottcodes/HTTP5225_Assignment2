@@ -77,7 +77,7 @@ include('includes/functions.php');
                     $record = mysqli_fetch_assoc($result_admin);
                     $_SESSION['id'] = $record['id'];
                     $_SESSION['email'] = $record['email'];
-                    header('Location: admin/dashboard.php');
+                    header('Location: admin/dashboard.php?adminid='.$_SESSION['id'].'');
                     die();
                 
                 }
@@ -87,10 +87,25 @@ include('includes/functions.php');
                     die();
                 }
             }
+
+            
                       if(isset($_GET['userid'])){
-                        echo '
-                          <a class="btn btn-secondary text-white nav-btn" href="logout.php">Logout</a>
-                        ';
+                        $query_user= 'SELECT *
+                        FROM users
+                        WHERE id="'.$_GET['userid'].'"
+                        LIMIT 1';
+                        $result_user = mysqli_query($connect,$query_user);
+                        foreach($result_user as $user){
+                          echo '
+                          <h5 class="me-2 mt-3">Welcome '.$user['first'].' '.$user['last'].'</h5>
+                          
+                          <a type="button" class="btn btn-secondary text-white" href="logout.php">Logout</a>
+                          
+                          </div>
+                          </nav>
+                          ';
+                        }
+                        
                       }
                       else{
                       
@@ -109,23 +124,28 @@ include('includes/functions.php');
                               </div>
                               <div class="modal-body">
                               <div class = "row">
-                              '.get_message().'
+                              
                               <form action="" method="POST">
+                              '.get_message().'
                                   <div class="form-group">
                                       <label for="email">Email address</label>
                                       <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter email">
-                                      
+                                      <div id="emailError" class="text-danger"></div>
                                   </div>
                                   <div class="form-group mt-3">
                                       <label for="password">Password</label>
                                       <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                      <div id="passError" class="text-danger"></div>
                                   </div>
                                   <button type="submit" name="login" class="btn btn-secondary text-white mt-3">Submit</button>
+
                               </form>
-                          </div>
+                            </div>
                               
                           </div>
                         </div>
+                        </div>
+                        </nav>
                         ';
                       }
                 ?>
@@ -135,21 +155,21 @@ include('includes/functions.php');
   </header>
   <section>
     <div class="container-fluid">
-    <div class="container my-5">
-    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-        <h1 class="display-3 fw-bold lh-1">Welcome to the Toronto Gallery Guide</h1>
-        <p class="lead">Leave a review of your favourite museums and galleries in the city.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-          <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2 fw-bold">Sign-Up</button>
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Login</button>
+      <div class="container my-5">
+        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+          <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+            <h1 class="display-3 fw-bold lh-1">Welcome to the Toronto Gallery Guide</h1>
+            <p class="lead">Leave a review of your favourite museums and galleries in the city.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+              <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2 fw-bold">Sign-Up</button>
+              <button type="button" class="btn btn-outline-secondary btn-lg px-4">Login</button>
+            </div>
+          </div>
+          <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+              <img class="rounded-lg-3" src="admin/imgs/museum-7409275_1280.jpg" alt="" width="720">
+          </div>
         </div>
       </div>
-      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-          <img class="rounded-lg-3" src="admin/imgs/museum-7409275_1280.jpg" alt="" width="720">
-      </div>
-    </div>
-  </div>
     </div>
   </section>
   <main>
@@ -175,8 +195,7 @@ include('includes/functions.php');
           ) AS latest_comment_subquery ON m.id = latest_comment_subquery.museum_id AND c.dateAdded = latest_comment_subquery.max_dateAdded
           GROUP BY m.id, m.name, m.image, m.address, m.type, m.summary, m.phone, m.url, m.postalcode, m.ward
           ORDER BY m.id
-          LIMIT 6; 
- ";
+          LIMIT 6 ";
 
         $result = mysqli_query($connect, $query);
 
@@ -287,68 +306,13 @@ include('includes/functions.php');
           </div>
         <?php endforeach; ?>
 
-        </div>
-    </div>
-    
-  </section>
-  <section>
-<?php
-
-        $query = "SELECT * FROM museums ORDER BY `id`;";
-
-        $resultChoices = mysqli_query($connect, $query);
-
-
-if(isset($_GET['userid'])){
-
-  echo'
-        <h4>Logged in as: '.$_SESSION['username'].'</h4>
-          <form action="comment/add_comment.php" method="POST">
-          <input type="hidden" id="userid" name="userid" value="'.$_GET['userid'].'">
-            <div>
-              <label for="museum">Museum</label>
-                <select name="museum_id">';
-                foreach ($resultChoices as $choice){
-                  echo '<option value="'.$choice['id'].'">'. $choice['name'] .'</option>';
-                }
-             echo   '</select>
-              </div>
-              <div>
-              <label for="comment">Comment</label>
-              <input type="text" id="comment" name="comment">
-            </div>
-            <button type="submit" class="btn btn-secondary text-white" name="addComment">Submit</button>
-          </form>
-        </div>
       </div>
-    </div>
-
+    </div>   
   </section>
-  ';
-
-}
-else{
-echo'
-
-        <h3>Please Login to comment<h3>
-        <a href="login.php" class="btn btn-secondary text-white">Login</a>
-      </div>
-    </div>
-  </div>
-
-</section>
-';
-}              
-
-?>
-
-  </section>
-
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-
+    crossorigin="anonymous">
+  </script>
   <script>
     var myModal = document.getElementById('myModal')
     var myInput = document.getElementById('myInput')
