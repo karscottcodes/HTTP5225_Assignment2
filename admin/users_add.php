@@ -13,12 +13,12 @@ if( isset( $_POST['first'] ) )
   {
     
     $query = 'INSERT INTO users (
-        first,
-        last,
-        email,
-        password,
-        active,
-        permission
+        `first`,
+        `last`,
+        `email`,
+        `password`,
+        `active`,
+        `permission`
       ) VALUES (
         "'.mysqli_real_escape_string( $connect, $_POST['first'] ).'",
         "'.mysqli_real_escape_string( $connect, $_POST['last'] ).'",
@@ -49,33 +49,41 @@ if( isset( $_POST['first'] ) )
 include( '../includes/header.php' );
 
 ?>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+
+
+
 
 <h2>Add User</h2>
 
+<p class="pt-3"><a class="btn btn-secondary text-white" href="users.php"><i class="bi bi-arrow-bar-left"></i> &nbsp;Return to User List</a></p>
+
 <form method="post">
   
-  <label for="first">First Name:</label>
-  <input type="text" name="first" id="first">
+  <label class="form-label" for="first">First Name:</label>
+  <input class="form-control" type="text" name="first" id="first">
   
   <br>
   
-  <label for="last">Last Name:</label>
-  <input type="text" name="last" id="last">
+  <label class="form-label" for="last">Last Name:</label>
+  <input class="form-control" type="text" name="last" id="last">
   
   <br>
   
-  <label for="email">Email:</label>
-  <input type="email" name="email" id="email">
+  <label class="form-label" for="email">Email:</label>
+  <input class="form-control" type="email" name="email" id="email">
   
   <br>
   
-  <label for="password">Password:</label>
-  <input type="password" name="password" id="password">
+  <label class="form-label" for="password">Password:</label>
+  <input class="form-control" type="password" name="password" id="password">
 
   <br>
 
-  <label for="permission">Admin?</label>
-  <select name="permission" id="permission">
+  <label class="form-label" for="permission">Admin?</label>
+  <select class="form-select" name="permission" id="permission">
     <option value="1">Yes</option>
     <option value="0">No</option>
   </select>
@@ -87,7 +95,7 @@ include( '../includes/header.php' );
   
   $activevalues = array( 'Yes', 'No' );
   
-  echo '<select name="active" id="active">';
+  echo '<select class="form-select" name="active" id="active">';
   foreach( $activevalues as $key => $value2 )
   {
     echo '<option value="'.$value2.'"';
@@ -99,11 +107,15 @@ include( '../includes/header.php' );
   
   <br>
   
-  <input type="submit" value="Add User">
+  <input class="btn btn-secondary text-white" type="submit" value="Add User">
   
 </form>
 
-<p><a href="users.php"><i class="fas fa-arrow-circle-left"></i> Return to User List</a></p>
+</div>
+  </div>
+</div>
+
+
 
 
 <?php

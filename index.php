@@ -31,25 +31,23 @@ include('includes/functions.php');
       <div class="row">
       <nav class="navbar navbar-expand-lg">
 
-          <a class="navbar-brand" href="#">
-            <img src="admin/imgs/logoA.png" alt="Toronto Gallery Guide Logo" width="297" height="75" class="d-inline-block align-text-top">
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="museum_list.php">Museums</a>
-              </li>
-            </ul>
-
-
-              <?php
+<a class="navbar-brand" href="#">
+  <img src="admin/imgs/logoA.png" alt="Toronto Gallery Guide Logo" width="297" height="75" class="d-inline-block align-text-top">
+</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+  aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="nav-link" href="index.php">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="museum_list.php">Museums</a>
+    </li>
+  </ul>
+  <?php
               if(isset($_POST['login'])){
                 $query= 'SELECT *
                 FROM users
@@ -108,8 +106,6 @@ include('includes/functions.php');
                           ';
                         }
                         
-
-                       
                       }
                       else{
                       
@@ -136,12 +132,13 @@ include('includes/functions.php');
                                       <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter email">
                                       <div id="emailError" class="text-danger"></div>
                                   </div>
-                                  <div class="form-group">
+                                  <div class="form-group mt-3">
                                       <label for="password">Password</label>
                                       <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                       <div id="passError" class="text-danger"></div>
                                   </div>
-                                  <button type="submit" id="submit" name="login" class="btn btn-primary">Submit</button>
+                                  <button type="submit" name="login" class="btn btn-secondary text-white mt-3">Submit</button>
+
                               </form>
                             </div>
                               
@@ -152,6 +149,9 @@ include('includes/functions.php');
                         ';
                       }
                 ?>
+</div>
+</nav>
+              
   </header>
   <section>
     <div class="container-fluid">

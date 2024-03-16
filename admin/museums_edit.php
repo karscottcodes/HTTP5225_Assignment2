@@ -65,55 +65,62 @@ include( '../includes/header.php' );
 
 ?>
 
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+
+
 <h2>Edit Museum</h2>
+
+<p class="pt-3"><a class="btn btn-secondary text-white" href="museums.php"><i class="bi bi-arrow-bar-left"></i> Return to Museum List</a></p>
 
 <form method="post">
   
-  <label for="name">Museum Name:</label>
-  <input type="text" name="name" id="name" value="<?php echo htmlentities( $record['name'] ); ?>">
+  <label class="form-label" for="name">Museum Name:</label>
+  <input class="form-control" type="text" name="name" id="name" value="<?php echo htmlentities( $record['name'] ); ?>">
   
   <br>
   
-  <label for="address">Address:</label>
-  <input type="text" name="address" id="address" value="<?php echo htmlentities( $record['address'] ); ?>">
+  <label class="form-label" for="address">Address:</label>
+  <input class="form-control" type="text" name="address" id="address" value="<?php echo htmlentities( $record['address'] ); ?>">
   
   <br>
-  <label for="postalcode">Postal Code:</label>
-  <input type="text" name="postalcode" id="postalcode" value="<?php echo htmlentities( $record['postalcode'] ); ?>">
-  
-  <br>
-  
-  <label for="type">Type:</label>
-  <input type="text" name="type" id="type" value="<?php echo htmlentities( $record['type'] ); ?>">
+  <label class="form-label" for="postalcode">Postal Code:</label>
+  <input class="form-control" type="text" name="postalcode" id="postalcode" value="<?php echo htmlentities( $record['postalcode'] ); ?>">
   
   <br>
   
-  <label for="summary">Summary:</label>
-  <input type="text" name="summary" id="summary" value="<?php echo htmlentities( $record['summary'] ); ?>">
+  <label class="form-label" for="type">Type:</label>
+  <input class="form-control" type="text" name="type" id="type" value="<?php echo htmlentities( $record['type'] ); ?>">
   
   <br>
-
-  <label for="phone">Phone Number:</label>
-  <input type="text" name="phone" id="phone" value="<?php echo htmlentities( $record['phone'] ); ?>">
+  
+  <label class="form-label" for="summary">Summary:</label>
+  <input class="form-control" type="text" name="summary" id="summary" value="<?php echo htmlentities( $record['summary'] ); ?>">
   
   <br>
 
-  <label for="url">Website:</label>
-  <input type="text" name="url" id="url" value="<?php echo htmlentities( $record['url'] ); ?>">
+  <label class="form-label" for="phone">Phone Number:</label>
+  <input class="form-control" type="text" name="phone" id="phone" value="<?php echo htmlentities( $record['phone'] ); ?>">
   
   <br>
 
-  <label for="ward">Ward:</label>
-  <input type="text" name="ward" id="ward" value="<?php echo htmlentities( $record['ward'] ); ?>">
+  <label class="form-label" for="url">Website:</label>
+  <input class="form-control" type="text" name="url" id="url" value="<?php echo htmlentities( $record['url'] ); ?>">
+  
+  <br>
+
+  <label class="form-label" for="ward">Ward:</label>
+  <input class="form-control" type="text" name="ward" id="ward" value="<?php echo htmlentities( $record['ward'] ); ?>">
   
   <br>
   
-  <input type="submit" value="Edit Museum">
+  <input class="btn btn-secondary text-white" type="submit" value="Edit Museum">
   
 </form>
-
-<p><a href="museums.php"><i class="fas fa-arrow-circle-left"></i> Return to Museum List</a></p>
-
+</div>
+  </div>
+</div>
 
 <?php
 

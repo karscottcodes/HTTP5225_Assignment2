@@ -29,8 +29,14 @@ $query = 'SELECT *
 $result = mysqli_query( $connect, $query );
 
 ?>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+
 
 <h2>Manage Comments</h2>
+
+<p class="pt-3"><a class="btn btn-secondary text-white" href="comments_add.php"><i class="bi bi-plus-square"></i> &nbsp;Add New Comment</a></p>
 
 <table class="table">
   <thead>
@@ -61,17 +67,20 @@ $result = mysqli_query( $connect, $query );
         <?php echo $record['dateAdded']; ?>
     </td>
     <td>
-        Edit Info
+        <a class="btn btn-secondary text-white" href="comments_edit.php?id=<?php echo $record['id'];?>"><i class="bi bi-body-text"></i> &nbsp;Edit</a>
     </td>
     <td>
-        Delete
+        <a class="btn btn-secondary text-white" href="comments.php?delete=<?php echo $record['id'];?>" onclick="javascript:confirm('Are you sure you want to delete this museum?');"><i class="bi bi-trash3"></i> &nbsp;Delete</i></a>
     </td>
     </tr>
   <?php endwhile; ?>
   </tbody>
 </table>
+</div>
+  </div>
+</div>
 
-<p><a href="comments_add.php"><i class="fas fa-plus-square"></i> Add Comments</a></p>
+
 
 
 <?php

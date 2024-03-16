@@ -21,6 +21,7 @@ if(isset($_POST['login'])){
     $result = mysqli_query($connect,$query);
 
     $result_admin = mysqli_query($connect,$admin_query);
+    
     if(mysqli_num_rowS($result)){
         $record = mysqli_fetch_assoc($result);
         $_SESSION['id'] = $record['id'];

@@ -46,55 +46,64 @@ include( '../includes/header.php' );
 
 ?>
 
-<h2>Add Museum</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+    <h2>Add Museum</h2>
 
-<form method="post">
-  
-  <label for="name">Museum Name:</label>
-  <input type="text" name="name" id="name">
-    
-  <br>
-  
-  <label for="address">Address:</label>
-  <input type="text" name="address" id="address">
-
-  <br>
-  
-  <label for="postalcode">Postal Code:</label>
-  <input type="text" name="postalcode" id="postalcode">
+    <p class="pt-3">
+      <a class="btn btn-secondary text-white" href="museums.php"><i class="bi bi-arrow-bar-left"></i> Return to Museums List</a></p>
+      <form method="post">
         
-  <br>
-  
-  <label for="type">Type:</label>
-  <input type="text" name="type" id="type">
-  
-  <br>
-  
-  <label for="summary">Summary:</label>
-  <input type="text" name="summary" id="summary">
-  
-  <br>
+        <label class="form-label" for="name">Museum Name:</label>
+        <input class="form-control" type="text" name="name" id="name">
+          
+        <br>
+        
+        <label class="form-label" for="address">Address:</label>
+        <input class="form-control" type="text" name="address" id="address">
 
-  <label for="phone">Phone Number:</label>
-  <input type="text" name="phone" id="phone">
-  
-  <br>
+        <br>
+        
+        <label class="form-label" for="postalcode">Postal Code:</label>
+        <input class="form-control" type="text" name="postalcode" id="postalcode">
+              
+        <br>
+        
+        <label class="form-label" for="type">Type:</label>
+        <input class="form-control" type="text" name="type" id="type">
+        
+        <br>
+        
+        <label class="form-label" for="summary">Summary:</label>
+        <input class="form-control" type="text" name="summary" id="summary">
+        
+        <br>
 
-  <label for="url">Website:</label>
-  <input type="text" name="url" id="url">
-  
-  <br>
+        <label class="form-label" for="phone">Phone Number:</label>
+        <input class="form-control" type="text" name="phone" id="phone">
+        
+        <br>
 
-  <label for="ward">Ward:</label>
-  <input type="text" name="ward" id="ward">
-  
-  <br>
-  
-  <input type="submit" value="Add Museum">
-  
-</form>
+        <label class="form-label" for="url">Website:</label>
+        <input class="form-control" type="text" name="url" id="url">
+        
+        <br>
 
-<p><a href="museums.php"><i class="fas fa-arrow-circle-left"></i> Return to Museums List</a></p>
+        <label class="form-label" for="ward">Ward:</label>
+        <input class="form-control" type="text" name="ward" id="ward">
+        
+        <br>
+        
+        <input class="btn btn-secondary text-white" type="submit" value="Add Museum">      
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 
 <?php
