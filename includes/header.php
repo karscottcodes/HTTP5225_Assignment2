@@ -46,9 +46,31 @@
                 <a class="nav-link" href="users.php">Users</a>
               </li>
             </ul>
-            <form class="d-flex">
-              <a class="btn btn-secondary text-white nav-btn" href="login.php">Login</a> &nbsp
-            </form>
+             <?php
+
+            
+                      if(isset($_GET['adminid'])){
+                        $query_user= 'SELECT *
+                        FROM users
+                        WHERE id="'.$_GET['adminid'].'"
+                        LIMIT 1';
+                        $result_user = mysqli_query($connect,$query_user);
+                        foreach($result_user as $user){
+                          echo '
+                          <h5 class="me-2 mt-3">Welcome '.$user['first'].' '.$user['last'].'</h5>
+                          
+                          <a type="button" class="btn btn-secondary text-white" href="../logout.php">Logout</a>
+                          
+                          </div>
+                          </nav>
+                          ';
+                        }
+                        
+
+                       
+                      }
+                      
+                ?>
           </div>
         </nav>
       </div>
