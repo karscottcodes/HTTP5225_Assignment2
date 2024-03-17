@@ -41,10 +41,18 @@ include('includes/functions.php');
 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
     <li class="nav-item">
-      <a class="nav-link" href="index.php">Home</a>
+      <a class="nav-link" href="index.php<?php 
+      if(isset($_GET['userid'])){
+        echo "?userid=";
+        echo $_GET['userid'];
+      }?>">Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="museum_list.php">Museums</a>
+      <a class="nav-link" href="museum_list.php<?php 
+      if(isset($_GET['userid'])){
+        echo "?userid=";
+        echo $_GET['userid'];
+      }?>">Museums</a>
     </li>
   </ul>
   <?php
@@ -123,21 +131,30 @@ include('includes/functions.php');
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                              <div class = "row">
-                              
-                              <form action="" method="POST">
+                              <form action=""  method="POST" class="row g-3 needs-validation" novalidate>
                               '.get_message().'
-                                  <div class="form-group">
-                                      <label for="email">Email address</label>
-                                      <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter email">
-                                      <div id="emailError" class="text-danger"></div>
-                                  </div>
-                                  <div class="form-group mt-3">
-                                      <label for="password">Password</label>
-                                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                                      <div id="passError" class="text-danger"></div>
-                                  </div>
+                                <div class="form-group">
+                                  <label for="email" class="form-label">Email</label>
+                                    <div class="input-group has-validation">
+                                      <input type="text" class="form-control" id="email" name="email" aria-describedby="inputGroupPrepend" placeholder="Email"required>
+                                      <div class="invalid-feedback">
+                                        Please enter email.
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="password">Password</label>
+                                    <div class="input-group has-validation">
+                                        <input type="password" class="form-control" id="password" name="password" aria-describedby="inputGroupPrepend"  placeholder="Password"required>
+                                        <div class="invalid-feedback">
+                                          Please enter password.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
                                   <button type="submit" name="login" class="btn btn-secondary text-white mt-3">Submit</button>
+                                </div>
+                                  
 
                               </form>
                             </div>
@@ -314,12 +331,26 @@ include('includes/functions.php');
     crossorigin="anonymous">
   </script>
   <script>
-    var myModal = document.getElementById('myModal')
-    var myInput = document.getElementById('myInput')
 
-    myModal.addEventListener('shown.bs.modal', function () {
-    myInput.focus()
-})
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => { form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
   </script>
 
 </body>
