@@ -5,7 +5,7 @@
     $museum = $_POST["museum_id"];
     $comment = $_POST["comment"];
     // include('../admin/includes/database.php');
-    $connect = mysqli_connect('localhost', 'root', 'root', '5225cms');
+    $connect = mysqli_connect('localhost', 'root', '', '5225cms');
     if (!$connect) {
       die("Connection failed: " . mysqli_connect_error());
     }
