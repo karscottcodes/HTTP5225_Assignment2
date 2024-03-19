@@ -50,17 +50,25 @@ if (isset($_GET['id'])) {
             <h1 class="text-center mt-4">'. $museum['name'] .'</h1>
             <div class="mt-3">
             <img src="'. $museum['image'] .'" class="card-img-top" alt=' . $museum['name'] . '>
+            <h4 class="pt-5">About '. $museum['name'] .'</h4>
             <p class="card-text">' . $museum['summary'] . '</p>
-            <p>'. $museum['address'] . '</p>
-            <p>'. $museum['postalcode'] . '</p>
-            <p>'. $museum['phone'] . '</p>
-            <p>'. $museum['ward'] . '</p>
-            <p>'. $museum['url'] . '</p>
+            <h4 class="pt-3">Address</h4>
+            <p class="card-text-">'. $museum['address'] .'<br>
+              '.$museum['postalcode'].'</p>
+            <h4 class="pt-3">Contact</h4>
+            <p class="card-text">Phone: '. $museum['phone'] . '<br>Website: 
+            <a href="'.$museum['url'].'" target="_blank">'.$museum['url'].'</a></p>
+            <h4 class="pt-3">Located in (City Ward):</h4>
+            <p class="card-text">'. $museum['ward'] . '</p>
             </section>
             <section>
               <div class="container">
-                <div class="row">
-                  <h2>Recent Comments</h2>
+                <div class="row pt-5 pb-3">
+                  <div class="col-sm-12">
+                    <h2>Recent Comments</h2>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
                   <div class="col-sm-8">
         ';
     }
@@ -119,7 +127,7 @@ foreach($result as $user){
   }
   else{
     echo '
-    <button type="button" class="btn btn-secondary text-white nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-secondary text-white nav-btn m-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Login
     </button>
     <!-- Modal -->
