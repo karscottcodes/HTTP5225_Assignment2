@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse ms-5 ps-5" id="navbarTogglerDemo02">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.php<?php 
+              <a class="nav-link" aria-current="page" href="index.php<?php 
               if(isset($_GET['userid'])){
                 echo "?userid=";
                 echo $_GET['userid'];

@@ -21,7 +21,123 @@ include('includes/functions.php');
             <p class="lead">Leave a review of your favourite museums and galleries in the city.</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
               <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2 fw-bold">Sign-Up</button>
-              <button type="button" class="btn btn-outline-secondary btn-lg px-4">Login</button>
+
+              <!-- <button type="button" class="btn btn-outline-secondary btn-lg px-4">Login</button> -->
+
+              <?php
+              if(isset($_POST['login'])){
+                $query= 'SELECT *
+                  FROM users
+                  WHERE email = "'.$_POST['email'].'"
+                  AND password = "'.md5($_POST['password']).'"
+                  And permission = 0
+                  LIMIT 1';
+            
+                $admin_query='SELECT *
+                  FROM users
+                  WHERE email = "'.$_POST['email'].'"
+                  AND password = "'.md5($_POST['password']).'"
+                  And permission = 1
+                  LIMIT 1';
+            
+                $result = mysqli_query($connect,$query);
+            
+                $result_admin = mysqli_query($connect,$admin_query);
+
+                if(mysqli_num_rowS($result)){
+                    $record = mysqli_fetch_assoc($result);
+                    $_SESSION['id'] = $record['id'];
+                    header('Location: index.php?userid='.$_SESSION['id'].'');
+                    die();
+                
+                  }
+                  if(mysqli_num_rowS($result_admin)){
+                      $record = mysqli_fetch_assoc($result_admin);
+                      $_SESSION['id'] = $record['id'];
+                      $_SESSION['email'] = $record['email'];
+                      header('Location: admin/dashboard.php?adminid='.$_SESSION['id'].'');
+                      die();
+                  
+                  }
+                  else{
+                      set_message('incorrect username/password');
+                      header('Location: index.php');
+                      die();
+                  }
+                }
+
+                    
+                if(isset($_GET['userid'])){
+                  $query_user= 'SELECT *
+                  FROM users
+                  WHERE id="'.$_GET['userid'].'"
+                  LIMIT 1';
+                  $result_user = mysqli_query($connect,$query_user);
+                  foreach($result_user as $user){
+                    echo '
+                    <h5 class="me-2 mt-3">Welcome '.$user['first'].' '.$user['last'].'</h5>
+                    
+                    <a type="button" class="btn btn-outline-secondary text-black" href="logout.php">Logout</a>
+                    
+                    </div>
+                    </nav>
+                    ';
+                  }
+                                
+                }
+                    else{
+                    
+
+                      echo '
+                      <button type="button" class="btn btn-outline-secondary nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Login
+                      </button>
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <form action=""  method="POST" class="row g-3 needs-validation" novalidate>
+                            '.get_message().'
+                              <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                  <div class="input-group has-validation">
+                                    <input type="text" class="form-control" id="email" name="email" aria-describedby="inputGroupPrepend" placeholder="Email"required>
+                                    <div class="invalid-feedback">
+                                      Please enter email.
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="password">Password</label>
+                                  <div class="input-group has-validation">
+                                      <input type="password" class="form-control" id="password" name="password" aria-describedby="inputGroupPrepend"  placeholder="Password"required>
+                                      <div class="invalid-feedback">
+                                        Please enter password.
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                <button type="submit" name="login" class="btn btn-secondary text-white mt-3">Submit</button>
+                              </div>
+                                
+
+                            </form>
+                          </div>
+                            
+                        </div>
+                      </div>
+                      </div>';
+                    }
+                      ?>
+
+
+
+
             </div>
           </div>
           <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
@@ -168,6 +284,7 @@ include('includes/functions.php');
       </div>
     </div>   
   </section>
+<?php include ("reusable/foot.php") ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous">
