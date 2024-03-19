@@ -22,8 +22,6 @@ include('includes/functions.php');
             <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
               <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2 fw-bold">Sign-Up</button>
 
-              <!-- <button type="button" class="btn btn-outline-secondary btn-lg px-4">Login</button> -->
-
               <?php
               if(isset($_POST['login'])){
                 $query= 'SELECT *
@@ -134,10 +132,6 @@ include('includes/functions.php');
                       </div>';
                     }
                       ?>
-
-
-
-
             </div>
           </div>
           <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
@@ -148,10 +142,10 @@ include('includes/functions.php');
     </div>
   </section>
   <main>
-    <div class="container-fluid">
-      <div class="row">
+    <div class="container">
+      <div class="row p-3">
         <div class="col">
-          <h2>Recently Added Museums</h2>
+          <h2>Most Commented Museums</h2>
         </div>
       </div>
       <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -169,7 +163,7 @@ include('includes/functions.php');
               GROUP BY museum_id
           ) AS latest_comment_subquery ON m.id = latest_comment_subquery.museum_id AND c.dateAdded = latest_comment_subquery.max_dateAdded
           GROUP BY m.id, m.name, m.image, m.address, m.type, m.summary, m.phone, m.url, m.postalcode, m.ward
-          ORDER BY m.id
+          ORDER BY comment_count DESC
           LIMIT 6 ";
 
         $result = mysqli_query($connect, $query);
@@ -226,8 +220,8 @@ include('includes/functions.php');
         ?>
       </div>
     </div>
-    <div class="container-fluid">
-      <div class="row">
+    <div class="container">
+      <div class="row pt-5">
         <div class="col">
           <h2>Recent Comments</h2>
         </div>
@@ -235,7 +229,6 @@ include('includes/functions.php');
     </div>
   </main>
   <section>
-
       <?php
         $query = "SELECT 
           c.id AS comment_id,
@@ -258,10 +251,10 @@ include('includes/functions.php');
 
           $resultComment = mysqli_query($connect, $query);
       ?>
-    <div class="container-fluid">
-      <div class="row">
+    <div class="container">
+      <div class="row justify-content-center">
         <?php foreach ($resultComment as $comment): ?> 
-          <div class="card h-100 m-3" style="max-width: 485px;">
+          <div class="card h-100 m-3" style="max-width: 420px;">
             <div class="row">
               <div class="col-lg-4">
                   <img src="<?php echo $comment['museum_image']; ?>" class="img-fluid rounded-start" alt="">

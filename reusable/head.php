@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <link href="admin/css/styles.css" type="text/css" rel="stylesheet">
+  <link href="includes/css/styles.css" type="text/css" rel="stylesheet">
 
   <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
   <!-- Used by Adam (May Remove) -->
@@ -38,14 +38,14 @@
               }?>">Home</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="about.php">About</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="museum_list.php<?php 
               if(isset($_GET['userid'])){
                 echo "?userid=";
                 echo $_GET['userid'];
               }?>">Museums</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about.php">About Us</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contact.php">Contact</a>
@@ -102,6 +102,7 @@
                   $result_user = mysqli_query($connect,$query_user);
                   foreach($result_user as $user){
                     echo '
+                    
                     <h5 class="me-2 mt-3">Welcome '.$user['first'].' '.$user['last'].'</h5>
                     
                     <a type="button" class="btn btn-secondary text-white" href="logout.php">Logout</a>
