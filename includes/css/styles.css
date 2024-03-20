@@ -70,3 +70,29 @@ section#hero::after {
 	position: relative;
 	z-index: 10;
 }
+
+.museum-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-button {
+	display: flex;
+	justify-content: center;
+	align-items: end;
+}
+
+    .pagination {
+        margin-top: 20px;
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #495057;
+        border-color: #495057;
+		color: #fff;
+    }
+    .pagination .page-link {
+        color: #000;
+    }
+    .pagination .page-link:hover {
+        background-color: #e9ecef;
+    }

@@ -10,7 +10,10 @@
 
     <ul class="nav col-md-4 justify-content-end">
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><a href="../about.php" class="nav-link px-2 text-body-secondary">About</a></li>
       <li class="nav-item"><a href="../museum_list.php" class="nav-link px-2 text-body-secondary">Museums</a></li>
+      <li class="nav-item"><a href="../contact.php" class="nav-link px-2 text-body-secondary">Contact</a></li>
+
     </ul>
   </footer>
 </div>
