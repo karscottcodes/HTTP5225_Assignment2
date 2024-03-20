@@ -9,7 +9,7 @@ secure();
 include( '../includes/header.php' );
 
 ?>
-<div class="container">
+<div class="container" style="min-height:65vh;">
   <div class="row g-1">
 
     <div class="col-lg-4">

@@ -72,14 +72,7 @@ include('includes/functions.php');
                   LIMIT 1';
                   $result_user = mysqli_query($connect,$query_user);
                   foreach($result_user as $user){
-                    echo '
-                    <h5 class="me-2 mt-3">Welcome '.$user['first'].' '.$user['last'].'</h5>
-                    
-                    <a type="button" class="btn btn-outline-secondary text-black" href="logout.php">Logout</a>
-                    
-                    </div>
-                    </nav>
-                    ';
+                    echo '';
                   }
                                 
                 }
@@ -172,22 +165,22 @@ include('includes/functions.php');
           if(isset($_GET['userid'])){
             echo "
             <div class='col'>
-              <div class='card h-100'>
-                  <img src=" . $museum['image'] . " class='card-img-top' alt='" . $museum['name'] . "'>
+              <div class='card h-100 d-flex flex-column'>
+                  <img src=" . $museum['image'] . " class='card-img-top museum-image' alt='" . $museum['name'] . "'>
                   <div class='card-body'>
                     <h5 class='card-title'>" . $museum['name'] . "</h5>
                     <p class='card-text'>" . $museum['summary'] . "</p>
-                    <div class='text-center'>
-                    <form>
-                      <input type='hidden' value='" . $museum['id'] . "'>
-                      <a class='btn btn-outline-dark' href='museum_details.php?userid=".$_GET['userid']."&id=" . $museum['id'] . "'>Museum Details</a>
-                    </form>
-                    </div>
+
                   </div>
+                  <div class='mt-auto'>
+                  <form class='card-button p-3'>
+                    <input type='hidden' value='" . $museum['id'] . "'>
+                    <a class='btn btn-outline-dark' href='museum_details.php?userid=".$_GET['userid']."&id=" . $museum['id'] . "'>Museum Details</a>
+                  </form>
+                </div>
                   <div class='card-footer'>
                     <p class='card-text'> Total Comments: " . $museum['comment_count'] . "</p>
                     <p class='card-text'> Most Recent Comment: " . $museum['latest_comment']. "</p>
-
               </div>
               </div>
             </div>
@@ -195,17 +188,17 @@ include('includes/functions.php');
           }else{
             echo "
             <div class='col'>
-              <div class='card h-100'>
-                  <img src=" . $museum['image'] . " class='card-img-top' alt='" . $museum['name'] . "'>
+              <div class='card h-100 d-flex flex-column'>
+                  <img src=" . $museum['image'] . " class='card-img-top museum-image' alt='" . $museum['name'] . "'>
                   <div class='card-body'>
                     <h5 class='card-title'>" . $museum['name'] . "</h5>
                     <p class='card-text'>" . $museum['summary'] . "</p>
-                    <div class='text-center'>
-                    <form>
+                  </div>
+                  <div class='mt-auto'>
+                  <form class='card-button p-3'>
                     <input type='hidden' value='" . $museum['id'] . "'>
                     <a class='btn btn-outline-dark' href='museum_details.php?id=" . $museum['id'] . "'>Museum Details</a>
-                    </form>
-                </div>
+                  </form>
                   </div>
                   <div class='card-footer'>
                   <p class='card-text'>Total Comments: " . $museum['comment_count'] . "</p>
@@ -256,8 +249,8 @@ include('includes/functions.php');
         <?php foreach ($resultComment as $comment): ?> 
           <div class="card h-100 m-3" style="max-width: 420px;">
             <div class="row">
-              <div class="col-lg-4">
-                  <img src="<?php echo $comment['museum_image']; ?>" class="img-fluid rounded-start" alt="">
+              <div class="col-lg-4 align-self-center">
+                  <img src="<?php echo $comment['museum_image']; ?>" class="img-fluid rounded-start comment-image" style="height: 100px; width: 125px;" alt="">
               </div>
               <div class="col-lg-8">
                 <div class="card-body">
@@ -273,7 +266,6 @@ include('includes/functions.php');
             </div>
           </div>
         <?php endforeach; ?>
-
       </div>
     </div>   
   </section>
