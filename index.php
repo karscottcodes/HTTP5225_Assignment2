@@ -70,10 +70,10 @@ unset($_SESSION['email']);
     </div>
   </section>
   <main>
-    <div class="container-fluid">
-      <div class="row">
+    <div class="container">
+      <div class="row p-3">
         <div class="col">
-          <h2>Recently Added Museums</h2>
+          <h2>Most Commented Museums</h2>
         </div>
       </div>
       <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -91,7 +91,7 @@ unset($_SESSION['email']);
               GROUP BY museum_id
           ) AS latest_comment_subquery ON m.id = latest_comment_subquery.museum_id AND c.dateAdded = latest_comment_subquery.max_dateAdded
           GROUP BY m.id, m.name, m.image, m.address, m.type, m.summary, m.phone, m.url, m.postalcode, m.ward
-          ORDER BY m.id
+          ORDER BY comment_count DESC
           LIMIT 6 ";
 
         $result = mysqli_query($connect, $query);
@@ -100,22 +100,22 @@ unset($_SESSION['email']);
           if(isset($_GET['userid'])){
             echo "
             <div class='col'>
-              <div class='card h-100'>
-                  <img src=" . $museum['image'] . " class='card-img-top' alt='" . $museum['name'] . "'>
+              <div class='card h-100 d-flex flex-column'>
+                  <img src=" . $museum['image'] . " class='card-img-top museum-image' alt='" . $museum['name'] . "'>
                   <div class='card-body'>
                     <h5 class='card-title'>" . $museum['name'] . "</h5>
                     <p class='card-text'>" . $museum['summary'] . "</p>
-                    <div class='text-center'>
-                    <form>
-                      <input type='hidden' value='" . $museum['id'] . "'>
-                      <a class='btn btn-outline-dark' href='museum_details.php?userid=".$_GET['userid']."&id=" . $museum['id'] . "'>Museum Details</a>
-                    </form>
-                    </div>
+
                   </div>
+                  <div class='mt-auto'>
+                  <form class='card-button p-3'>
+                    <input type='hidden' value='" . $museum['id'] . "'>
+                    <a class='btn btn-outline-dark' href='museum_details.php?userid=".$_GET['userid']."&id=" . $museum['id'] . "'>Museum Details</a>
+                  </form>
+                </div>
                   <div class='card-footer'>
                     <p class='card-text'> Total Comments: " . $museum['comment_count'] . "</p>
                     <p class='card-text'> Most Recent Comment: " . $museum['latest_comment']. "</p>
-
               </div>
               </div>
             </div>
@@ -123,17 +123,17 @@ unset($_SESSION['email']);
           }else{
             echo "
             <div class='col'>
-              <div class='card h-100'>
-                  <img src=" . $museum['image'] . " class='card-img-top' alt='" . $museum['name'] . "'>
+              <div class='card h-100 d-flex flex-column'>
+                  <img src=" . $museum['image'] . " class='card-img-top museum-image' alt='" . $museum['name'] . "'>
                   <div class='card-body'>
                     <h5 class='card-title'>" . $museum['name'] . "</h5>
                     <p class='card-text'>" . $museum['summary'] . "</p>
-                    <div class='text-center'>
-                    <form>
+                  </div>
+                  <div class='mt-auto'>
+                  <form class='card-button p-3'>
                     <input type='hidden' value='" . $museum['id'] . "'>
                     <a class='btn btn-outline-dark' href='museum_details.php?id=" . $museum['id'] . "'>Museum Details</a>
-                    </form>
-                </div>
+                  </form>
                   </div>
                   <div class='card-footer'>
                   <p class='card-text'>Total Comments: " . $museum['comment_count'] . "</p>
@@ -148,8 +148,8 @@ unset($_SESSION['email']);
         ?>
       </div>
     </div>
-    <div class="container-fluid">
-      <div class="row">
+    <div class="container">
+      <div class="row pt-5">
         <div class="col">
           <h2>Recent Comments</h2>
         </div>
@@ -157,7 +157,6 @@ unset($_SESSION['email']);
     </div>
   </main>
   <section>
-
       <?php
         $query = "SELECT 
           c.id AS comment_id,
@@ -180,13 +179,13 @@ unset($_SESSION['email']);
 
           $resultComment = mysqli_query($connect, $query);
       ?>
-    <div class="container-fluid">
-      <div class="row">
+    <div class="container">
+      <div class="row justify-content-center">
         <?php foreach ($resultComment as $comment): ?> 
-          <div class="card h-100 m-3" style="max-width: 485px;">
+          <div class="card h-100 m-3" style="max-width: 420px;">
             <div class="row">
-              <div class="col-lg-4">
-                  <img src="<?php echo $comment['museum_image']; ?>" class="img-fluid rounded-start" alt="">
+              <div class="col-lg-4 align-self-center">
+                  <img src="<?php echo $comment['museum_image']; ?>" class="img-fluid rounded-start comment-image" style="height: 100px; width: 125px;" alt="">
               </div>
               <div class="col-lg-8">
                 <div class="card-body">
@@ -202,10 +201,10 @@ unset($_SESSION['email']);
             </div>
           </div>
         <?php endforeach; ?>
-
       </div>
     </div>   
   </section>
+<?php include ("reusable/foot.php") ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous">

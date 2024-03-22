@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <link href="../HTTP5225_ASSIGNMENT2/admin/css/styles.css" type="text/css" rel="stylesheet">
+  <link href="includes/css/styles.css" type="text/css" rel="stylesheet">
 
   <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -55,7 +55,6 @@
             </ul>
             <?php
                 include('reusable/loginConnect.php');
-
                       
                   if(isset($_GET['userid'])){
                     $query_user= 'SELECT *
