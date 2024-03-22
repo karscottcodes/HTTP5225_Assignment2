@@ -3,12 +3,25 @@
 include('includes/database.php');
 include('includes/config.php');
 include('includes/functions.php');
+include('reusable/loginConnect.php');
 
 ?>
+
 <!doctype html>
 <html>
 
-
+<?php
+// session_start();
+$email="";
+$login_error_message ="";
+if(isset($_SESSION['error_message']) && $_SESSION['error_message']!="")
+{
+$login_error_message = $_SESSION['error_message'];
+$email=$_SESSION['email'];
+unset($_SESSION['error_message']);
+unset($_SESSION['email']);
+}
+?>
 <?php
     include('reusable/head.php')
     ?>
@@ -19,11 +32,36 @@ include('includes/functions.php');
           <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
             <h1 class="display-3 fw-bold lh-1">Welcome to the Toronto Gallery Guide</h1>
             <p class="lead">Leave a review of your favourite museums and galleries in the city.</p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-              <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2 fw-bold">Sign-Up</button>
-              <button type="button" class="btn btn-outline-secondary btn-lg px-4">Login</button>
+            <?php
+                if(isset($_GET['userid'])){
+                      $query_user= 'SELECT *
+                      FROM users
+                      WHERE id="'.$_GET['userid'].'"
+                      LIMIT 1';
+                      $result_user = mysqli_query($connect,$query_user);
+                      foreach($result_user as $user){
+                        echo '
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                        <h4 class="me-2 mt-3">Hi '.$user['first'].' '.$user['last'].', enjoy your trips!</h4>       
+                        </div>             
+                        
+                        ';
+                      }
+                                    
+                    }
+                        else{
+                        
+
+                          echo '
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                              <a class="btn btn-outline-secondary btn-lg px-4" href="signup.php">Sign-Up</a>
+                              <button type="button" id="loginModal" class="btn btn-outline-secondary btn-lg px-4" data-bs-toggle="modal" data-bs-target="#modal">Login</button>
+                            </div>
+                          ';
+                          include('reusable/loginModal.php');
+                        }
+                  ?>            
             </div>
-          </div>
           <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
               <img class="rounded-lg-3" src="admin/imgs/museum-7409275_1280.jpg" alt="" width="720">
           </div>
@@ -194,6 +232,7 @@ include('includes/functions.php');
   })
 })()
   </script>
+  
 
 </body>
 
