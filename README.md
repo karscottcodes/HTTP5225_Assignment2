@@ -1,7 +1,7 @@
 # HTTP-5225-0NA
 ## Assignment 2: PHP CMS
 
-**Kyle Scott** - N00352594
+**Kyle Scott** - N00352594  
 **Nhi Nguyen** - N01593039
 
 A simple PHP/MySQL CMS for a Museum Commenting Website.
