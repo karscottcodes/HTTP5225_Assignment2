@@ -96,3 +96,7 @@ section#hero::after {
     .pagination .page-link:hover {
         background-color: #e9ecef;
     }
+    #error_message{
+        color:red;
+      }
+      
