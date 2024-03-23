@@ -154,7 +154,7 @@ include('reusable/loginModal.php');
     </body>
     <?php
 
-include( 'includes/footer.php' );
+include( 'reusable/foot.php' );
 
 ?>
 </html>
