@@ -8,7 +8,7 @@
         </div>
         <div class="modal-body">
         <form action=""  method="POST" class="row g-3 needs-validation" id="form" novalidate>
-          <p id="error_message" ><?php echo $login_error_message;?></p>
+          <p id="error_message" ><?php echo $login_error_message ;?></p>
           <div class="form-group">
             <label for="email" class="form-label">Email</label>
               <div class="input-group has-validation">

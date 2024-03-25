@@ -1,10 +1,26 @@
 <?php
-include( 'includes/database.php' );
-include( 'includes/config.php' );
-include( 'includes/functions.php' );
-include('reusable/loginConnect.php');
-include('reusable/loginModal.php');
+include('includes/config.php');
+include('includes/database.php');
+include('includes/functions.php');
+
+if(isset($_POST['login'])){
+    include('reusable/loginConnect.php');
+    }
+    
+     //$error=[];
+
 ?>
+ <?php
+    $email="";
+    $login_error_message ="";
+    if(isset($_SESSION['error_message']) && $_SESSION['error_message']!="")
+    {
+    $login_error_message= $_SESSION['error_message'];
+    unset($_SESSION['error_message']);
+    }
+
+    ?>
+
 
 
 <!doctype html>
@@ -17,18 +33,19 @@ include('reusable/loginModal.php');
         <title>Toronto Gallery Guide | Sign Up</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-        <link href="admin/css/styles.css" type="text/css" rel="stylesheet">
+  <link href="includes/css/styles.css" type="text/css" rel="stylesheet">
 
         <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Used by Adam (May Remove) -->
 
     </head>
 <body>
+
     <header>
-        <div class="container">
+               <div class="container">
             <div class="row">
                 <nav class="navbar navbar-expand-lg">
 
@@ -62,10 +79,12 @@ include('reusable/loginModal.php');
                                 <a class="nav-link" href="contact.php">Contact</a>
                             </li>
                         </ul>
-
-                        <button type="button" class="btn btn-secondary text-white nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-secondary text-white nav-btn" data-bs-toggle="modal" data-bs-target="#modal">
                             Login
                         </button>
+                        <?php
+                        include('reusable/loginModal.php');
+                        ?>
                     </div>
                 </nav>
             </div>
@@ -74,6 +93,7 @@ include('reusable/loginModal.php');
     </header>
     <?php
     if(isset($_POST['signUp'])){
+
         $query = 'INSERT INTO users (first,last, email, password) 
         VALUES(
         "'.mysqli_real_escape_string($connect,$_POST['first']).'",
@@ -96,12 +116,17 @@ include('reusable/loginModal.php');
         echo get_message();
         echo '
             <div class = "row center" style="width:200px">
-                <button type="button" class="btn btn-secondary text-white nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-secondary text-white nav-btn" data-bs-toggle="modal" data-bs-target="#modal">
                     Login
                 </button>
-            </div>
+                ';
+                
+                include('reusable/loginModal.php');
+        echo '
+        
         </div>
         ';
+
 
         }
     else{
@@ -116,29 +141,26 @@ include('reusable/loginModal.php');
         </div>
         
         <div class="container">
-            <?php
-            echo get_message();
-            ?>
             <div class = "row">
                 <form action="" method="POST">
-                    <div class="form-group">
+                    <div class="form-group col-sm-6">
                         <label for="firstname">First Name</label>
-                        <input type="text" class="form-control" id="first" name="first" aria-describedby="firstname" placeholder="Enter First Name">
+                        <input type="text" class="form-control" id="first" name="first" aria-describedby="firstname" placeholder="Enter First Name" required>
                         
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-sm-6">
                         <label for="lastname">Last name</label>
-                        <input type="text" class="form-control" id="last" name="last" aria-describedby="lastname" placeholder="Enter Last Name">
+                        <input type="text" class="form-control" id="last" name="last" aria-describedby="lastname" placeholder="Enter Last Name" required>
                         
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-sm-6">
                         <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter email">
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter email" required>
                         
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-sm-6">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                     </div>
                     <button type="submit" name="signUp" class="btn btn-secondary mt-3">Sign Up</button>
                 </form>
@@ -150,7 +172,40 @@ include('reusable/loginModal.php');
 
 
     ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+    <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
 
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+    </script>
+ <script type="text/javascript">
+    window.onload = () => {  
+    <?php
+    if($login_error_message !=""){
+        ?>
+        const myModal = new bootstrap.Modal('#modal');
+        myModal.show();
+        <?php } ?>
+    };
+</script>
     </body>
     <?php
 

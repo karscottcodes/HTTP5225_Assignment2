@@ -1,25 +1,19 @@
 <?php
-
-include('includes/database.php');
 include('includes/config.php');
+include('includes/database.php');
 include('includes/functions.php');
 include('reusable/loginConnect.php');
-
 ?>
 
 <!doctype html>
 <html>
 
 <?php
-// session_start();
-$email="";
 $login_error_message ="";
 if(isset($_SESSION['error_message']) && $_SESSION['error_message']!="")
 {
 $login_error_message = $_SESSION['error_message'];
-$email=$_SESSION['email'];
 unset($_SESSION['error_message']);
-unset($_SESSION['email']);
 }
 ?>
 <?php
@@ -232,7 +226,17 @@ unset($_SESSION['email']);
 })()
   </script>
   
-
+  <script>
+window.onload = () => {  
+  <?php
+ if($login_error_message !=""){
+    ?>
+    //$("#loginModal").click();
+    const myModal = new bootstrap.Modal('#modal');
+      myModal.show();
+    <?php } ?>
+};
+</script>
 </body>
 
 </html>

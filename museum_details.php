@@ -1,10 +1,22 @@
 <?php
-
-include('includes/database.php');
 include('includes/config.php');
+include('includes/database.php');
 include('includes/functions.php');
+if(isset($_POST['login'])){
+  include('reusable/loginConnect.php');
+  }
 
 ?>
+ <?php
+    $email="";
+    $login_error_message ="";
+    if(isset($_SESSION['error_message']) && $_SESSION['error_message']!="")
+    {
+    $login_error_message= $_SESSION['error_message'];
+    unset($_SESSION['error_message']);
+    }
+
+    ?>
 <!doctype html>
 <html>
 
@@ -114,7 +126,7 @@ foreach($result as $user){
                   <textarea class="form-control" placeholder="Leave a comment here" id="comment" name="comment"></textarea>
                   <label for="floatingTextarea">Comments</label>
                 </div>
-                <button type="submit" class="btn btn-secondary text-white" name="addComment">Submit</button>
+                <button type="submit" class="btn btn-secondary text-white mt-3" name="addComment">Submit</button>
               </form>
             </div>
           </div>
@@ -127,48 +139,11 @@ foreach($result as $user){
   }
   else{
     echo '
-    <button type="button" class="btn btn-secondary text-white nav-btn m-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Login
-    </button>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-          <form action=""  method="POST" class="row g-3 needs-validation" novalidate>
-        
-            <div class="form-group">
-              <label for="email" class="form-label">Email</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control" id="email" name="email" aria-describedby="inputGroupPrepend" placeholder="Email"required>
-                  <div class="invalid-feedback">
-                    Please enter email.
-                  </div>
-                </div>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-                <div class="input-group has-validation">
-                    <input type="password" class="form-control" id="password" name="password" aria-describedby="inputGroupPrepend"  placeholder="Password"required>
-                    <div class="invalid-feedback">
-                      Please enter password.
-                    </div>
-                </div>
-            </div>
-            <div>
-              <button type="submit" name="login" class="btn btn-secondary text-white mt-3">Submit</button>
-            </div>
-              
-
-          </form>
-        </div>
-          
-      </div>
-    </div>
+    <button type="button" class="btn btn-secondary text-white nav-btn" data-bs-toggle="modal" data-bs-target="#modal">
+    Login
+    </button>';
+    include('reusable/loginModal.php');
+    echo'
     </div>
     </nav>
     ';
@@ -200,6 +175,16 @@ foreach($result as $user){
         })
     })()
     </script>
+     <script type="text/javascript">
+    window.onload = () => {  
+    <?php
+    if($login_error_message !=""){
+        ?>
+        const myModal = new bootstrap.Modal('#modal');
+        myModal.show();
+        <?php } ?>
+    };
+</script>
 </body>
 
 </html>
