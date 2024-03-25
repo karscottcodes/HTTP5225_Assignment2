@@ -47,10 +47,18 @@
                 }?>">Museums</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.php">About Us</a>
+                <a class="nav-link" href="about.php<?php 
+                if(isset($_GET['userid'])){
+                  echo "?userid=";
+                  echo $_GET['userid'];
+                }?>">About Us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.php">Contact</a>
+                <a class="nav-link" href="contact.php<?php 
+                if(isset($_GET['userid'])){
+                  echo "?userid=";
+                  echo $_GET['userid'];
+                }?>">Contact</a>
               </li>
             </ul>
             <?php
@@ -111,14 +119,3 @@
     });
 
   </script>
-
-<script>
-window.onload = () => {  <?php
- if($login_error_message !=""){
-    ?>
-    //$("#loginModal").click();
-    const myModal = new bootstrap.Modal('#modal');
-      myModal.show();
-    <?php } ?>
-};
-</script>

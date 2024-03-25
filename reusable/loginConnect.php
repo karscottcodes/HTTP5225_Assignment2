@@ -1,6 +1,4 @@
 <?php
-// session_start();
-// include('reusable/loginConnect.php');
 if(isset($_POST['login'])){
   $email=$_POST['email'];
   $query= 'SELECT *
@@ -25,8 +23,16 @@ if(isset($_POST['login'])){
       $record = mysqli_fetch_assoc($result);
       $_SESSION['id'] = $record['id'];
       $_SESSION['email'] = $record['email'];
-      header('Location: index.php?userid='.$_SESSION['id'].'');
+      $pagename = htmlspecialchars(basename($_SERVER['PHP_SELF']));
+      if(isset($_GET['id'])){
+        header('Location: '.$pagename.'?userid='.$_SESSION['id'].'&id='.$_GET['id'].'');
       die();
+      }
+      else{
+        header('Location: index.php?userid='.$_SESSION['id'].'');
+        die();
+      }
+
   
     }
     if(mysqli_num_rowS($result_admin)>0){
@@ -39,10 +45,17 @@ if(isset($_POST['login'])){
     }
     else{
       $_SESSION['email']=$email;
-        // $_SESSION['error_message'] = set_message('incorrect username/password');
-        $_SESSION['error_message'] ='incorrect username/password';
-        header('Location: index.php');
-        // die();
+        $_SESSION['error_message'] ='incorrect email/password';
+        $pagename = htmlspecialchars(basename($_SERVER['PHP_SELF']));
+        if(isset($_GET['id'])){
+          header('Location: '.$pagename.'?id='.$_GET['id'].'');
+        die();
+        }
+        else{
+          header('Location: '.$pagename.'');
+          die();
+        }
+
     }
   }
   ?>
