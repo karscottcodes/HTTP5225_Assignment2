@@ -4,7 +4,7 @@
 **Kyle Scott** - N00352594  
 **Nhi Nguyen** - N01593039
 
-Available here: [Toronto Gallery Guide](http:/https://karscottcodes.com/toronto-gallery-guide// "Toronto Gallery Guide")
+Available here: [Toronto Gallery Guide](https://karscottcodes.com/toronto-gallery-guide// "Toronto Gallery Guide")
 
 A simple PHP/MySQL CMS for a Museum Commenting Website ("Toronto Gallery Guide").
 
