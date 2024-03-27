@@ -19,10 +19,10 @@ CRUD functionality on three tables: Museums, Comments, and Users
 
 ### Sample Users
 
-**Admin  
+**Admin**  
 test@test.com | Hello  
 sampleadmin@test.com | HelloAdmin  
 
-**User  
+**User**  
 sampleuser@test.com | HelloUser  
 
