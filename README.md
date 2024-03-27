@@ -12,12 +12,12 @@ Features a simple front-end interface for guest users, registered users (who can
 
 CRUD functionality on three tables: Museums, Comments, and Users
 
-### Sample USers
+### Sample Users
 
-**Admin
-test@test.com | Hello
-sampleadmin@test.com | HelloAdmin
+**Admin  
+test@test.com | Hello  
+sampleadmin@test.com | HelloAdmin  
 
-**User
-sampleuser@test.com | HelloUser
+**User  
+sampleuser@test.com | HelloUser  
 
