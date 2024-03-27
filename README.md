@@ -1,5 +1,10 @@
 # Toronto Gallery Guide
 ## HTTP-5225: Assignment 2: PHP CMS
+**Task: In groups students will create a small PHP CMS from scratch (using the code sample built in class):**
+- **PHP Output, Variables, Control Structures, Loops and Loops**
+- **HTML/CSS**
+- **SQL and MySQL**
+
 
 **Kyle Scott** - N00352594  
 **Nhi Nguyen** - N01593039
