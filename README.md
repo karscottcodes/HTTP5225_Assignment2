@@ -1,5 +1,5 @@
-# HTTP-5225-0NA
-## Assignment 2: PHP CMS - "Toronto Gallery Guide"
+# Toronto Gallery Guide
+## HTTP-5225: Assignment 2: PHP CMS
 
 **Kyle Scott** - N00352594  
 **Nhi Nguyen** - N01593039
